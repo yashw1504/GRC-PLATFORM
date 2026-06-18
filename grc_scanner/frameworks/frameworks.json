@@ -1,0 +1,568 @@
+{
+  "check_to_control_mapping": {
+
+    "https_enforced": [
+      "PCI-4.1",
+      "ISO-A.10.1",
+      "GDPR-32",
+      "HIPAA-164.312(e)(1)",
+      "SOC2-CC6.4"
+    ],
+
+    "hsts_present": [
+      "PCI-4.1",
+      "ISO-A.10.1",
+      "SOC2-CC6.4"
+    ],
+
+    "csp_present": [
+      "OWASP-A03",
+      "ISO-A.8.2"
+    ],
+
+    "x_frame_options": [
+      "ISO-A.13.1",
+      "OWASP-A05"
+    ],
+
+    "x_content_type_options": [
+      "ISO-A.13.1"
+    ],
+
+    "server_header_leak": [
+      "ISO-A.5.10"
+    ],
+
+    "cookies_secure": [
+      "PCI-4.1",
+      "GDPR-32"
+    ],
+
+    "privacy_policy_found": [
+      "GDPR-12",
+      "GDPR-13",
+      "DPDPA-4"
+    ],
+
+    "cookie_banner_found": [
+      "GDPR-7",
+      "DPDPA-5"
+    ],
+
+    "tls_version_good": [
+      "PCI-4.1",
+      "ISO-A.10.1"
+    ],
+
+    "open_ports_detected": [
+      "PCI-6.2",
+      "ISO-A.13.1",
+      "NIST-PR.PS",
+      "SOC2-CC6.1",
+      "CIS-12"
+    ],
+
+    "secret_detected": [
+      "PCI-8.2",
+      "ISO-A.8.24",
+      "NIST-IA-5",
+      "HIPAA-164.312(d)",
+      "SOC2-CC6.3",
+      "GDPR-32",
+      "DPDPA-8"
+    ],
+
+    "nuclei_cve_critical": [
+      "PCI-6.2",
+      "ISO-A.12.6",
+      "NIST-RA-5",
+      "HIPAA-164.308(a)(1)(ii)(D)",
+      "SOC2-CC7.1"
+    ],
+
+    "nuclei_cve_high": [
+      "PCI-6.2",
+      "ISO-A.12.6",
+      "NIST-RA-5",
+      "SOC2-CC7.1"
+    ],
+
+    "nuclei_cve_medium": [
+      "ISO-A.8.29",
+      "NIST-RA-5",
+      "SOC2-CC7.1"
+    ],
+
+    "nuclei_misconfiguration": [
+      "ISO-A.8.29",
+      "NIST-CM-6",
+      "SOC2-CC7.1"
+    ],
+
+     "exposed_git_repository": [
+    "PCI-6.2",
+    "ISO-A.8.29",
+    "SOC2-CC7.1"
+  ],
+
+  "exposed_env_file": [
+    "PCI-3.4",
+    "ISO-A.8.24",
+    "SOC2-CC6.3"
+  ],
+
+  "security_txt_missing": [
+    "ISO-A.5.24",
+    "NIST-ID.RA"
+  ],
+
+  "admin_panel_exposed": [
+    "PCI-7.2",
+    "ISO-A.9.2",
+    "SOC2-CC6.3"
+  ],
+
+  "container_runs_as_root": [
+  "ISO-A.8.24",
+  "NIST-AC-6",
+  "HIPAA-164.312(a)(1)",
+  "SOC2-CC6.3",
+  "PCI-7.2"
+],
+
+"container_no_healthcheck": [
+  "ISO-A.12.1",
+  "NIST-SC-5",
+  "SOC2-CC6.1"
+],
+
+"container_secrets_in_env": [
+  "ISO-A.8.24",
+  "NIST-SC-8",
+  "HIPAA-164.312(c)(1)",
+  "SOC2-CC6.1"
+],
+
+"container_exposed_ports": [
+  "PCI-1.3",
+  "ISO-A.13.1",
+  "NIST-SC-7",
+  "SOC2-CC6.1"
+],
+
+"k8s_pod_privileged": [
+  "ISO-A.8.24",
+  "NIST-AC-6",
+  "HIPAA-164.312(a)(1)",
+  "SOC2-CC6.3"
+],
+
+"k8s_network_policy_missing": [
+  "ISO-A.13.1",
+  "NIST-AC-3",
+  "PCI-1.3",
+  "SOC2-CC6.1"
+],
+
+"k8s_host_path_mounted": [
+  "ISO-A.13.1",
+  "NIST-AC-3",
+  "SOC2-CC6.1"
+],
+
+"k8s_container_privilege_escalation": [
+  "ISO-A.8.24",
+  "NIST-AC-6",
+  "SOC2-CC6.3"
+],
+
+"iac_terraform_s3_public": [
+  "PCI-1.1",
+  "ISO-A.13.1",
+  "NIST-AC-3",
+  "HIPAA-164.312(a)(1)",
+  "SOC2-CC6.1"
+],
+
+"iac_terraform_iam_full_admin": [
+  "ISO-A.9.2",
+  "NIST-AC-2",
+  "SOC2-CC6.3",
+  "PCI-7.2"
+],
+
+"iac_terraform_security_group_wide_open": [
+  "PCI-1.3",
+  "ISO-A.13.1",
+  "NIST-SC-7",
+  "SOC2-CC6.1"
+],
+
+"iac_unencrypted_storage": [
+  "PCI-3.4",
+  "ISO-A.8.24",
+  "NIST-SC-28",
+  "HIPAA-164.312(c)(1)",
+  "SOC2-CC6.1"
+],
+
+"cicd_secrets_in_logs": [
+  "ISO-A.8.24",
+  "NIST-IA-5",
+  "SOC2-CC6.3"
+],
+
+"cicd_no_approval_gate": [
+  "ISO-A.12.1",
+  "NIST-CM-3",
+  "SOC2-CC6.1",
+  "PCI-6.4"
+],
+
+"cicd_unpinned_actions": [
+  "ISO-A.12.6",
+  "NIST-CM-3",
+  "SOC2-CC7.1"
+],
+
+"cicd_vulnerable_dependency": [
+  "PCI-6.2",
+  "ISO-A.12.6",
+  "NIST-RA-5",
+  "SOC2-CC7.1"
+],
+
+"cicd_no_codeql_or_sast": [
+  "ISO-A.8.29",
+  "NIST-RA-5",
+  "SOC2-CC7.1"
+],
+
+  "cicd_no_secret_scanning": ["ISO-A.8.24","NIST-IA-5","SOC2-CC6.3"],
+
+  "cicd_no_container_scanning": ["PCI-6.2","ISO-A.12.6","SOC2-CC7.1"],
+
+  "cicd_no_iac_scanning": ["ISO-A.8.29","NIST-RA-5","SOC2-CC7.1"],
+
+  "cicd_no_k8s_scanning": ["ISO-A.13.1","SOC2-CC6.1"],
+
+  "cicd_no_sbom_generation": ["PCI-6.3","NIST-SCRM","SOC2-CC7.1"],
+
+  "cicd_no_security_gate": ["PCI-6.4","ISO-A.12.1","SOC2-CC6.1"],
+
+  "cicd_unsigned_artifacts": ["NIST-SCRM","SOC2-CC7.1"],
+
+  "cicd_workflow_permissions_excessive": ["ISO-A.9.2","NIST-AC-6","SOC2-CC6.3"],
+
+  "cicd_latest_tag_usage": ["ISO-A.12.6","SOC2-CC7.1"],
+
+  "cicd_no_notifications": ["ISO-A.5.24","SOC2-CC7.2"],
+
+  "azure_mfa_disabled": [
+  "PCI-8.4",
+  "ISO-A.5.17",
+  "SOC2-CC6.1",
+  "HIPAA-164.312(d)"
+],
+
+"azure_guest_users_enabled": [
+  "ISO-A.5.18",
+  "SOC2-CC6.3"
+],
+
+"azure_legacy_auth_enabled": [
+  "PCI-8.3",
+  "ISO-A.5.17",
+  "SOC2-CC6.1"
+],
+
+"azure_conditional_access_missing": [
+  "ISO-A.5.15",
+  "SOC2-CC6.2",
+  "NIST-AC-3"
+],
+
+"azure_global_admin_excessive": [
+  "ISO-A.5.15",
+  "SOC2-CC6.1"
+],
+
+"azure_stale_accounts": [
+  "ISO-A.5.18",
+  "SOC2-CC6.3"
+],
+
+"azure_service_principal_admin": [
+  "ISO-A.5.15",
+  "SOC2-CC6.1"
+],
+
+"azure_audit_logs_disabled": [
+  "ISO-A.8.15",
+  "SOC2-CC7.2"
+],
+
+"azure_storage_public": [
+  "PCI-3.4",
+  "GDPR-32",
+  "HIPAA-164.312(a)",
+  "ISO-A.8.12"
+],
+
+"azure_storage_https_disabled": [
+  "PCI-4.2",
+  "ISO-A.8.24",
+  "SOC2-CC6.7"
+],
+
+"azure_storage_encryption_disabled": [
+  "PCI-3.5",
+  "HIPAA-164.312(a)",
+  "ISO-A.8.24"
+],
+
+"azure_vm_public_ip": [
+  "PCI-1.2",
+  "ISO-A.8.20",
+  "SOC2-CC6.6"
+],
+
+"azure_vm_disk_encryption_disabled": [
+  "PCI-3.5",
+  "HIPAA-164.312(a)"
+],
+
+"azure_nsg_wide_open": [
+  "PCI-1.2",
+  "ISO-A.8.20",
+  "SOC2-CC6.6"
+],
+
+"azure_nsg_ssh_open": [
+  "PCI-1.2",
+  "ISO-A.8.20"
+],
+
+"azure_nsg_rdp_open": [
+  "PCI-1.2",
+  "ISO-A.8.20"
+],
+
+"azure_firewall_disabled": [
+  "PCI-1.1",
+  "ISO-A.8.20"
+],
+
+"azure_sql_public_access": [
+  "PCI-7.2",
+  "HIPAA-164.312(a)",
+  "ISO-A.8.20"
+],
+
+"azure_sql_tde_disabled": [
+  "PCI-3.5",
+  "HIPAA-164.312(a)"
+],
+
+"azure_keyvault_public_access": [
+  "ISO-A.8.24",
+  "SOC2-CC6.1"
+],
+
+"azure_keyvault_purge_protection_disabled": [
+  "ISO-A.8.13"
+],
+
+"azure_defender_disabled": [
+  "ISO-A.8.16",
+  "SOC2-CC7.2"
+],
+
+"aks_rbac_disabled": [
+  "OWASP-A01",
+  "ISO-A.5.15",
+  "NIST-AC-6"
+],
+
+"aks_secret_encryption_disabled": [
+  "PCI-3.5",
+  "HIPAA-164.312(a)"
+],
+
+"azure_storage_softdelete_disabled": [
+  "ISO-A.8.13",
+  "SOC2-CC7.3"
+],
+
+"azure_storage_logging_disabled": [
+  "ISO-A.8.15",
+  "SOC2-CC7.2"
+],
+
+"azure_storage_blob_public": [
+  "PCI-3.4",
+  "GDPR-32",
+  "ISO-A.8.12"
+],
+
+"azure_storage_network_rules_missing": [
+  "PCI-1.2",
+  "ISO-A.8.20"
+],
+
+"azure_storage_key_rotation_disabled": [
+  "ISO-A.8.24",
+  "SOC2-CC6.1"
+],
+
+"azure_vm_backup_disabled": [
+  "ISO-A.8.13",
+  "SOC2-CC7.3"
+],
+
+"azure_vm_jit_disabled": [
+  "ISO-A.8.20",
+  "SOC2-CC6.1"
+],
+
+"azure_ddos_disabled": [
+  "ISO-A.8.20",
+  "SOC2-CC7.1"
+],
+
+"azure_sql_auditing_disabled": [
+  "ISO-A.8.15",
+  "SOC2-CC7.2"
+],
+
+"azure_sql_threat_detection_disabled": [
+  "ISO-A.8.16",
+  "SOC2-CC7.2"
+],
+
+"azure_sql_backup_disabled": [
+  "ISO-A.8.13",
+  "SOC2-CC7.3"
+],
+
+"azure_sql_old_tls": [
+  "PCI-4.2",
+  "ISO-A.8.24"
+],
+
+"azure_keyvault_softdelete_disabled": [
+  "ISO-A.8.13"
+],
+
+"azure_keyvault_old_keys": [
+  "ISO-A.8.24",
+  "SOC2-CC6.1"
+],
+
+"azure_keyvault_no_rbac": [
+  "ISO-A.5.15",
+  "SOC2-CC6.1"
+],
+
+"azure_security_center_disabled": [
+  "ISO-A.8.16",
+  "SOC2-CC7.2"
+],
+
+"azure_recommendations_unresolved": [
+  "ISO-A.8.16",
+  "SOC2-CC7.2"
+],
+
+"aks_public_api": [
+  "PCI-1.2",
+  "ISO-A.8.20"
+],
+
+"aks_private_cluster_disabled": [
+  "ISO-A.8.20",
+  "SOC2-CC6.1"
+],
+
+"aks_network_policy_disabled": [
+  "PCI-1.3",
+  "ISO-A.13.1"
+],
+
+"aks_audit_logging_disabled": [
+  "ISO-A.8.15",
+  "SOC2-CC7.2"
+],
+
+"azure_appservice_http_enabled": [
+  "PCI-4.2",
+  "ISO-A.8.24"
+],
+
+"azure_appservice_ftps_disabled": [
+  "ISO-A.8.24"
+],
+
+"azure_appservice_managed_identity_missing": [
+  "ISO-A.5.15",
+  "SOC2-CC6.1"
+],
+
+"azure_appservice_auth_disabled": [
+  "ISO-A.5.15",
+  "SOC2-CC6.1"
+],
+
+"azure_function_public_access": [
+  "PCI-1.2",
+  "ISO-A.8.20"
+],
+
+"azure_function_managed_identity_missing": [
+  "ISO-A.5.15",
+  "SOC2-CC6.1"
+],
+
+"azure_function_http_only": [
+  "PCI-4.2",
+  "ISO-A.8.24"
+],
+
+"azure_monitor_disabled": [
+  "ISO-A.8.15",
+  "SOC2-CC7.2"
+],
+
+"azure_log_analytics_missing": [
+  "ISO-A.8.15",
+  "SOC2-CC7.2"
+],
+
+"azure_activity_log_disabled": [
+  "ISO-A.8.15",
+  "SOC2-CC7.2"
+],
+
+"azure_policy_disabled": [
+  "ISO-A.5.36",
+  "SOC2-CC6.1"
+],
+
+"azure_policy_noncompliant_resources": [
+  "ISO-A.5.36",
+  "SOC2-CC6.1"
+],
+
+"azure_backup_disabled": [
+  "ISO-A.8.13",
+  "SOC2-CC7.3"
+],
+
+"azure_site_recovery_disabled": [
+  "ISO-A.5.30",
+  "SOC2-CC7.3"
+]
+
+  }
+}
+

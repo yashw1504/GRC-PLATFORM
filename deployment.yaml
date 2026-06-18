@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: demo
+
+spec:
+  replicas: 1
+
+  template:
+
+    spec:
+
+      containers:
+
+      - name: nginx
+
+        image: nginx
+
+        securityContext:
+          privileged: true
+
+      volumes:
+
+      - name: host
+
+        hostPath:
+          path: /
