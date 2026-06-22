@@ -41,8 +41,8 @@ function RunScan() {
       startTimer();
 
       const response = await API.post("/scan", {
-        target_type: targetType,
-        target: target
+        target: target,
+        target_type: targetType
       });
 
       setResult(response.data);
