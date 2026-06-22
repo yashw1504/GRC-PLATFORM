@@ -1,7 +1,6 @@
 from grc_scanner.engine.scan_engine import (
     ScanEngine
 )
-
 TARGET = "https://www.coinhako.com/"
 
 engine = ScanEngine()

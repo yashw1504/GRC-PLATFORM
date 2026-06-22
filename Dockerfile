@@ -1,7 +1,20 @@
-FROM python:latest
+FROM python:3.11-slim
 
-USER root
+WORKDIR /app
 
-ENV PASSWORD=admin123
+COPY requirements.txt .
 
-EXPOSE 22
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+EXPOSE 8000
+
+CMD [
+    "uvicorn",
+    "grc_scanner.api.app:app",
+    "--host",
+    "0.0.0.0",
+    "--port",
+    "8000"
+]
