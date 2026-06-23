@@ -84,3 +84,40 @@ class ReportRepository:
             )
 
         return reports
+    
+    @staticmethod
+    def get_report_by_id(
+        report_id
+    ):
+
+        conn = (
+            PostgresClient.get_connection()
+        )
+
+        cursor = conn.cursor()
+
+        cursor.execute(
+            """
+            SELECT
+                id,
+                report_type,
+                report_path
+            FROM reports
+            WHERE id=%s
+            """,
+            (report_id,)
+        )
+
+        row = cursor.fetchone()
+
+        cursor.close()
+        conn.close()
+
+        if not row:
+            return None
+
+        return {
+            "id": row[0],
+            "type": row[1],
+            "path": row[2]
+        }

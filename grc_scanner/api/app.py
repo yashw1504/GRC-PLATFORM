@@ -26,6 +26,11 @@ from grc_scanner.storage.report_repository import (
     ReportRepository
 )
 
+from fastapi.responses import FileResponse
+from grc_scanner.storage.report_repository import (
+    ReportRepository
+)
+
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
@@ -208,4 +213,31 @@ def compliance_by_scan(
         .get_scores_by_scan(
             scan_id
         )
+    )
+
+@app.get(
+    "/download-report/{report_id}"
+)
+def download_report(
+    report_id: int
+):
+
+    report = (
+        ReportRepository
+        .get_report_by_id(
+            report_id
+        )
+    )
+
+    if not report:
+
+        return {
+            "error": "Report not found"
+        }
+
+    return FileResponse(
+        report["path"],
+        filename=
+        report["path"]
+        .split("/")[-1]
     )
