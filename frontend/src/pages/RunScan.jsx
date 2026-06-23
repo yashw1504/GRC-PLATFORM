@@ -8,7 +8,7 @@ function RunScan() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [elapsedTime, setElapsedTime] = useState(0);
-
+  const [selectedScanners, setSelectedScanners] = useState([]);
   const timerRef = useRef(null);
   const startTimeRef = useRef(null);
 
@@ -265,17 +265,53 @@ function RunScan() {
                 cursor: "pointer"
               }}
             >
-              <option value="website">Website</option>
-              <option value="ip">IP Address</option>
-              <option value="api">API Endpoint</option>
-              <option value="source">Source Code</option>
-              <option value="container">Docker Image</option>
-              <option value="kubernetes">Kubernetes YAML</option>
-              <option value="terraform">Terraform</option>
-              <option value="apk">APK File</option>
-              <option value="aws">AWS Account</option>
-              <option value="azure">Azure Tenant</option>
-              <option value="gcp">GCP Project</option>
+              <option value="website">
+                Website
+              </option>
+
+              <option value="network">
+                Network
+              </option>
+
+              <option value="container">
+                Container
+              </option>
+
+              <option value="source">
+                Source Code
+              </option>
+
+              <option value="iac">
+                IaC
+              </option>
+
+              <option value="cicd">
+                CI/CD
+              </option>
+
+              <option value="aws">
+                AWS
+              </option>
+
+              <option value="azure">
+                Azure
+              </option>
+
+              <option value="gcp">
+                GCP
+              </option>
+
+              <option value="database">
+                Database
+              </option>
+
+              <option value="kubernetes">
+                Kubernetes
+              </option>
+
+              <option value="sbom">
+                SBOM
+              </option>
             </select>
           </div>
 

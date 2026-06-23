@@ -137,22 +137,122 @@ class ScanEngine:
             .split("/")[0]
         )
 
-        findings.extend(self.network_scanner.scan(parsed_host))
-        findings.extend(self.secrets_scanner.scan("."))
-        findings.extend(self.vulnerability_scanner.scan(target))
-        findings.extend(self.container_scanner.scan("."))
-        findings.extend(self.kubernetes_scanner.scan("."))
-        findings.extend(self.iac_scanner.scan("."))
-        findings.extend(self.cicd_scanner.scan("."))
+        #findings.extend(self.network_scanner.scan(parsed_host))
+        #findings.extend(self.secrets_scanner.scan("."))
+        #findings.extend(self.vulnerability_scanner.scan(target))
+        #findings.extend(self.container_scanner.scan("."))
+        #findings.extend(self.kubernetes_scanner.scan("."))
+        #findings.extend(self.iac_scanner.scan("."))
+        #findings.extend(self.cicd_scanner.scan("."))
 
-        findings.extend(self.aws_scanner.scan())
-        findings.extend(self.azure_scanner.scan())
-        findings.extend(self.gcp_scanner.scan())
+        #findings.extend(self.aws_scanner.scan())
+        #findings.extend(self.azure_scanner.scan())
+        #findings.extend(self.gcp_scanner.scan())
 
-        findings.extend(self.database_scanner.scan())
-        findings.extend(self.ssl_scanner.scan(target))
-        findings.extend(self.sbom_scanner.scan("."))
-        findings.extend(self.api_scanner.scan(target))
+        #findings.extend(self.database_scanner.scan())
+        #findings.extend(self.ssl_scanner.scan(target))
+        #findings.extend(self.sbom_scanner.scan("."))
+        #findings.extend(self.api_scanner.scan(target))
+
+        if scan_type == "website":
+
+            findings.extend(
+                self.web_scanner.scan(
+                    target
+                )
+            )
+
+            findings.extend(
+                self.ssl_scanner.scan(
+                    target
+                )
+            )
+
+            findings.extend(
+                self.api_scanner.scan(
+                    target
+                )
+            )
+
+        elif scan_type == "network":
+
+            findings.extend(
+                self.network_scanner.scan(
+                    parsed_host
+                )
+            )
+
+        elif scan_type == "container":
+
+            findings.extend(
+                self.container_scanner.scan(
+                    "."
+                )
+            )
+
+        elif scan_type == "source":
+
+            findings.extend(
+                self.secrets_scanner.scan(
+                    "."
+                )
+            )
+
+        elif scan_type == "iac":
+
+            findings.extend(
+                self.iac_scanner.scan(
+                    "."
+                )
+            )
+
+        elif scan_type == "cicd":
+
+            findings.extend(
+                self.cicd_scanner.scan(
+                    "."
+                )
+            )
+
+        elif scan_type == "aws":
+
+            findings.extend(
+                self.aws_scanner.scan()
+            )
+
+        elif scan_type == "azure":
+
+            findings.extend(
+                self.azure_scanner.scan()
+            )
+
+        elif scan_type == "gcp":
+
+            findings.extend(
+                self.gcp_scanner.scan()
+            )
+
+        elif scan_type == "database":
+
+            findings.extend(
+                self.database_scanner.scan()
+            )
+
+        elif scan_type == "kubernetes":
+
+            findings.extend(
+                self.kubernetes_scanner.scan(
+                    "."
+                )
+            )
+
+        elif scan_type == "sbom":
+
+            findings.extend(
+                self.sbom_scanner.scan(
+                    "."
+                )
+            )
 
         findings = self.compliance_engine.map_controls(findings)
 
