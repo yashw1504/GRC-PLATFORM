@@ -1,3 +1,4 @@
+import os
 from grc_scanner.scanners.web.web_scanner import WebScanner
 
 from grc_scanner.engine.compliance_engine import (
@@ -171,6 +172,11 @@ class ScanEngine:
             )
         )
 
+        os.makedirs(
+            "output",
+            exist_ok=True
+        )
+        
         json_path = (
             f"output/scan_{scan_id}_report.json"
         )
@@ -238,6 +244,21 @@ class ScanEngine:
         )
 
         print("Saving JSON Report...")
+
+        print(
+            "JSON Exists:",
+            os.path.exists(json_path)
+        )
+
+        print(
+            "HTML Exists:",
+            os.path.exists(html_path)
+        )
+
+        print(
+            "EXEC Exists:",
+            os.path.exists(exec_path)
+        )
 
         ReportRepository.save_report(
             scan_id,
