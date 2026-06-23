@@ -285,6 +285,10 @@ function RunScan() {
                 IaC
               </option>
 
+              <option value="apk">
+                Mobile Application (APK)
+              </option>
+
               <option value="cicd">
                 CI/CD
               </option>

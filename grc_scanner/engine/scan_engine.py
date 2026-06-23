@@ -206,6 +206,14 @@ class ScanEngine:
                 )
             )
 
+        elif scan_type == "apk":
+
+            findings.extend(
+                self.apk_scanner.scan(
+                    target
+                )
+            )
+
         elif scan_type == "cicd":
 
             findings.extend(
