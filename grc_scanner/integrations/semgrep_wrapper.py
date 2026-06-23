@@ -11,28 +11,39 @@ class SemgrepWrapper:
 
     @staticmethod
     def scan(path="."):
-
         if not SemgrepWrapper.is_available():
-            return {}
+            return []
+
+        result = subprocess.run(
+            [
+                "semgrep",
+                "scan",
+                "--json",
+                path
+            ],
+            capture_output=True,
+            text=True
+        )
+
+        if not result.stdout:
+            return []
 
         try:
+            data = json.loads(result.stdout)
+        except json.JSONDecodeError:
+            return []
 
-            result = subprocess.run(
-                [
-                    "semgrep",
-                    "--config",
-                    "auto",
-                    path,
-                    "--json"
-                ],
-                capture_output=True,
-                text=True
+        findings = []
+
+        for item in data.get("results", []):
+            findings.append(
+                {
+                    "check_id": item.get("check_id"),
+                    "name": item.get("check_id"),
+                    "message": item.get("extra", {}).get("message", ""),
+                    "path": item.get("path"),
+                    "severity": item.get("extra", {}).get("severity", "Medium")
+                }
             )
 
-            if not result.stdout:
-                return {}
-
-            return json.loads(result.stdout)
-
-        except Exception:
-            return {}
+        return findings

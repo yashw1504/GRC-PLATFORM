@@ -1,150 +1,93 @@
-import socket
-
 from grc_scanner.engine.finding import Finding
 from grc_scanner.engine.risk_engine import RiskEngine
+from grc_scanner.integrations.nmap_wrapper import NmapWrapper
 
 
 class NetworkScanner:
-
     name = "network_scanner"
 
-    COMMON_PORTS = {
-        21: "FTP",
-        22: "SSH",
-        23: "Telnet",
-        25: "SMTP",
-        53: "DNS",
-        80: "HTTP",
-        110: "POP3",
-        135: "RPC",
-        139: "NetBIOS",
-        143: "IMAP",
-        389: "LDAP",
-        443: "HTTPS",
-        445: "SMB",
-        993: "IMAPS",
-        995: "POP3S",
-        1433: "MSSQL",
-        1521: "Oracle",
-        2049: "NFS",
-        3306: "MySQL",
-        3389: "RDP",
-        5432: "PostgreSQL",
-        5900: "VNC",
-        6379: "Redis",
-        8080: "HTTP-ALT",
-        8443: "HTTPS-ALT",
-        9200: "Elasticsearch",
-        27017: "MongoDB"
-    }
+    def scan(self, target):
+        if NmapWrapper.is_available():
+            return self._scan_with_nmap(target)
 
-    RISKY_SERVICES = {
-        "FTP",
-        "Telnet",
-        "SMB",
-        "RDP",
-        "VNC",
-        "Redis",
-        "MongoDB",
-        "Elasticsearch",
-        "NetBIOS"
-    }
+        return self._scan_with_fallback(target)
 
-    def scan(self, host):
-
+    def _scan_with_nmap(self, target):
         findings = []
+        output = NmapWrapper.scan(target)
 
-        open_ports = []
+        if not output:
+            return findings
 
-        for port, service in self.COMMON_PORTS.items():
+        lower_output = output.lower()
 
-            try:
-
-                with socket.create_connection(
-                    (host, port),
-                    timeout=1
-                ):
-
-                    open_ports.append(
-                        {
-                            "port": port,
-                            "service": service
-                        }
-                    )
-
-            except Exception:
-                pass
-
-        findings.extend(
-            self._build_findings(
-                open_ports
+        if "open" in lower_output:
+            findings.append(
+                self._create_finding(
+                    "network_open_ports",
+                    "Open Ports Detected",
+                    "fail",
+                    "High",
+                    "Nmap found open ports",
+                    target,
+                    "Attack surface exposed",
+                    "Close unused ports",
+                    "Restrict access",
+                    "Network"
+                )
             )
-        )
+
+        if "22/tcp" in lower_output:
+            findings.append(
+                self._create_finding(
+                    "network_ssh_open",
+                    "SSH Port Open",
+                    "fail",
+                    "Medium",
+                    "SSH port is open",
+                    target,
+                    "Brute-force exposure",
+                    "Restrict SSH access",
+                    "Use allowlists",
+                    "Network"
+                )
+            )
+
+        if "80/tcp" in lower_output or "443/tcp" in lower_output:
+            findings.append(
+                self._create_finding(
+                    "network_web_open",
+                    "Web Ports Open",
+                    "pass",
+                    "Low",
+                    "Web service detected",
+                    target,
+                    "Expected exposure",
+                    "Review service",
+                    "Verify hardening",
+                    "Network"
+                )
+            )
 
         return findings
 
-    def _build_findings(self, open_ports):
-
+    def _scan_with_fallback(self, target):
         findings = []
 
-        if not open_ports:
-
-            findings.append(
-                self._create_finding(
-                    "open_ports_detected",
-                    "Open Ports Scan",
-                    "pass",
-                    "Info",
-                    "No common ports detected",
-                    "No open ports",
-                    "",
-                    "",
-                    "",
-                    "Network Security"
-                )
+        findings.append(
+            self._create_finding(
+                "network_fallback_check",
+                "Basic Network Scan",
+                "pass",
+                "Low",
+                "Fallback network scan executed",
+                target,
+                "No Nmap available",
+                "Install Nmap for deeper checks",
+                "Use Nmap where possible",
+                "Network"
             )
-
-            return findings
-
-        for port_info in open_ports:
-
-            service = port_info["service"]
-            port = port_info["port"]
-
-            severity = (
-                "High"
-                if service in self.RISKY_SERVICES
-                else "Info"
-            )
-
-            status = (
-                "fail"
-                if service in self.RISKY_SERVICES
-                else "pass"
-            )
-
-            findings.append(
-                self._create_finding(
-                    "open_ports_detected",
-                    f"{service} Port Open",
-                    status,
-                    severity,
-                    f"{service} detected",
-                    f"Port {port}",
-                    (
-                        f"{service} may expose "
-                        f"attack surface."
-                    ),
-                    (
-                        "Restrict access using "
-                        "firewall rules."
-                    ),
-                    (
-                        "Review exposure."
-                    ),
-                    "Network Security"
-                )
-            )
+        )
 
         return findings
 
@@ -161,7 +104,6 @@ class NetworkScanner:
         recommendation,
         category
     ):
-
         finding = Finding(
             check_id=check_id,
             name=name,
@@ -177,6 +119,4 @@ class NetworkScanner:
             target_type="network"
         )
 
-        return RiskEngine.enrich_finding(
-            finding
-        )
+        return RiskEngine.enrich_finding(finding)

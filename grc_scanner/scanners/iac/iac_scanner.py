@@ -2,18 +2,13 @@ from pathlib import Path
 
 from grc_scanner.engine.finding import Finding
 from grc_scanner.engine.risk_engine import RiskEngine
-
-from grc_scanner.integrations.checkov_wrapper import (
-    CheckovWrapper
-)
+from grc_scanner.integrations.checkov_wrapper import CheckovWrapper
 
 
 class IaCScanner:
-
     name = "iac_scanner"
 
     def scan(self, path="."):
-
         if CheckovWrapper.is_available():
             return self._scan_with_checkov(path)
 
@@ -28,35 +23,68 @@ class IaCScanner:
         if not results:
             return findings
 
-        findings.append(
-            self._create_finding(
-                "iac_checkov_scan",
-                "Checkov Scan Completed",
-                "pass",
-                "Info",
-                "Checkov scan completed",
-                path,
-                "",
-                "",
-                "",
-                "Infrastructure as Code"
+        for failed in results.get(
+            "results",
+            {}
+        ).get(
+            "failed_checks",
+            []
+        ):
+
+            findings.append(
+                self._create_finding(
+                    failed.get(
+                        "check_id",
+                        "checkov_rule"
+                    ),
+                    failed.get(
+                        "check_name",
+                        "Checkov Finding"
+                    ),
+                    "fail",
+                    "High",
+                    failed.get(
+                        "check_name",
+                        "Infrastructure Misconfiguration"
+                    ),
+                    failed.get(
+                        "file_path",
+                        path
+                    ),
+                    "Infrastructure misconfiguration may create security risk.",
+                    "Review and fix failed Checkov control.",
+                    "Follow CIS benchmark and least privilege principles.",
+                    "Infrastructure as Code"
+                )
             )
-        )
+
+        return findings
+
+        for failed in results.get("results", {}).get("failed_checks", []):
+            findings.append(
+                self._create_finding(
+                    failed.get("check_id"),
+                    failed.get("check_name"),
+                    "fail",
+                    "High",
+                    failed.get("check_name"),
+                    failed.get("file_path"),
+                    "Infrastructure misconfiguration",
+                    "Fix configuration",
+                    "Follow CIS benchmark",
+                    "Infrastructure as Code"
+                )
+            )
 
         return findings
 
     def _scan_with_fallback(self, path):
-
         findings = []
-
         root = Path(path)
-
         tf_files = list(root.rglob("*.tf"))
 
         for tf_file in tf_files:
-
             try:
-
                 content = tf_file.read_text(
                     encoding="utf-8",
                     errors="ignore"
@@ -95,16 +123,10 @@ class IaCScanner:
 
         return findings
 
-    def _check_public_s3(
-        self,
-        file,
-        content
-    ):
-
+    def _check_public_s3(self, file, content):
         findings = []
 
         if 'acl = "public-read"' in content.lower():
-
             findings.append(
                 self._create_finding(
                     "iac_terraform_s3_public",
@@ -122,16 +144,10 @@ class IaCScanner:
 
         return findings
 
-    def _check_open_security_group(
-        self,
-        file,
-        content
-    ):
-
+    def _check_open_security_group(self, file, content):
         findings = []
 
         if "0.0.0.0/0" in content:
-
             findings.append(
                 self._create_finding(
                     "iac_terraform_security_group_wide_open",
@@ -149,19 +165,13 @@ class IaCScanner:
 
         return findings
 
-    def _check_admin_policy(
-        self,
-        file,
-        content
-    ):
-
+    def _check_admin_policy(self, file, content):
         findings = []
 
         if (
             'Action = "*"' in content
             or '"*"' in content
         ):
-
             findings.append(
                 self._create_finding(
                     "iac_terraform_iam_full_admin",
@@ -179,19 +189,10 @@ class IaCScanner:
 
         return findings
 
-    def _check_unencrypted_storage(
-        self,
-        file,
-        content
-    ):
-
+    def _check_unencrypted_storage(self, file, content):
         findings = []
 
-        if (
-            "encrypted = false"
-            in content.lower()
-        ):
-
+        if "encrypted = false" in content.lower():
             findings.append(
                 self._create_finding(
                     "iac_unencrypted_storage",
@@ -222,7 +223,6 @@ class IaCScanner:
         recommendation,
         category
     ):
-
         finding = Finding(
             check_id=check_id,
             name=name,
@@ -238,6 +238,4 @@ class IaCScanner:
             target_type="iac"
         )
 
-        return RiskEngine.enrich_finding(
-            finding
-        )
+        return RiskEngine.enrich_finding(finding)

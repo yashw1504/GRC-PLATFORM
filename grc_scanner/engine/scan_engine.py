@@ -254,6 +254,15 @@ class ScanEngine:
                 )
             )
 
+        elif scan_type == "source":
+            findings.extend(
+                self.source_scanner.scan(".")
+            )
+
+            findings.extend(
+                self.secrets_scanner.scan(".")
+    )
+
         findings = self.compliance_engine.map_controls(findings)
 
         compliance_scores = self.compliance_engine.calculate_scores(findings)
