@@ -1,12 +1,74 @@
 from grc_scanner.engine.finding import Finding
 from grc_scanner.engine.risk_engine import RiskEngine
+from grc_scanner.integrations.sslscan_wrapper import (
+    SSLScanWrapper
+)
 
 
 class SSLScanner:
 
     name = "ssl_scanner"
 
-    def scan(self, target="https://example.com"):
+    def scan(self, target):
+
+        if SSLScanWrapper.is_available():
+            return self._scan_with_sslscan(
+                target
+            )
+
+        return self._scan_demo()
+
+    def _scan_with_sslscan(
+        self,
+        target
+    ):
+
+        findings = []
+
+        output = SSLScanWrapper.scan(
+            target
+        )
+
+        if not output:
+            return findings
+
+        output = output.lower()
+
+        if "tlsv1.0" in output:
+            findings.append(
+                self._create_finding(
+                    "ssl_old_tls_version",
+                    "Old TLS Version",
+                    "fail",
+                    "High",
+                    "TLS 1.0 detected",
+                    target,
+                    "Weak encryption",
+                    "Upgrade TLS",
+                    "Use TLS 1.2+",
+                    "SSL/TLS"
+                )
+            )
+
+        if "self signed" in output:
+            findings.append(
+                self._create_finding(
+                    "ssl_self_signed",
+                    "Self Signed Certificate",
+                    "fail",
+                    "High",
+                    "Self signed certificate detected",
+                    target,
+                    "Trust issue",
+                    "Use trusted CA",
+                    "Replace certificate",
+                    "SSL/TLS"
+                )
+            )
+
+        return findings
+
+    def _scan_demo(self):
 
         findings = []
 

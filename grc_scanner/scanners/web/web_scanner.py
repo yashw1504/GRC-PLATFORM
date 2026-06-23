@@ -17,7 +17,14 @@ class WebScanner:
     name = "web_scanner"
 
     def scan(self, target):
+
         findings = []
+
+        if not target.startswith(
+            ("http://", "https://")
+        ):
+            target = f"https://{target}"
+
 
         try:
             response = requests.get(
