@@ -9,4 +9,4 @@ frontend/dist
 .env
 
 reports
-output
+output/.
