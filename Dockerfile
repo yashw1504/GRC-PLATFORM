@@ -11,11 +11,11 @@ RUN apt-get update && apt-get install -y \
 
 RUN apt-get update && \
     apt-get install -y wget unzip && \
-    wget https://github.com/projectdiscovery/nuclei/releases/latest/download/nuclei_3.4.10_linux_amd64.zip && \
-    unzip nuclei_3.4.10_linux_amd64.zip && \
+    wget https://github.com/projectdiscovery/nuclei/releases/download/v3.4.7/nuclei_3.4.7_linux_amd64.zip && \
+    unzip nuclei_3.4.7_linux_amd64.zip && \
     mv nuclei /usr/local/bin/ && \
     chmod +x /usr/local/bin/nuclei && \
-    rm -f nuclei_3.4.10_linux_amd64.zip
+    rm -f nuclei_3.4.7_linux_amd64.zip
 
 
 COPY requirements.txt .
