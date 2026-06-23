@@ -169,7 +169,7 @@ class ScanEngine:
             )
 
             findings.extend(
-                self.api_scanner.scan(
+                self.vulnerability_scanner.scan(
                     target
                 )
             )
