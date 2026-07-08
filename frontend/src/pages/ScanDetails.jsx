@@ -168,7 +168,7 @@ function ScanDetails() {
             </a>
 
             <a
-              href={`http://13.232.166.187:8000/download/${id}/executive`}
+              href={`http://3.110.88.20:8000/download/${id}/executive`}
               style={{
                 padding: "10px 18px",
                 background: "linear-gradient(90deg, #fbbf24, #f59e0b)",
