@@ -8,91 +8,58 @@ function Findings() {
   const [scanFilter, setScanFilter] = useState("");
   const [urlFilter, setUrlFilter] = useState("");
   const [searchText, setSearchText] = useState("");
-  const [debugData, setDebugData] = useState(null);
 
   useEffect(() => {
     API.get("/findings")
       .then((response) => {
-        console.log("=== API RESPONSE ===", response);
-        console.log("=== API DATA ===", response.data);
-        
-        // Check if data is nested (e.g., response.data.findings)
-        const actualData = response.data.findings || response.data.findings_set || response.data;
-        
-        console.log("=== ACTUAL FINDINGS DATA ===", actualData);
-        console.log("=== FIRST FINDING ===", actualData[0]);
-        
-        // Log all keys of first finding
-        if (actualData[0]) {
-          console.log("=== FIRST FINDING KEYS ===", Object.keys(actualData[0]));
-        }
-        
-        setFindings(actualData);
-        setDebugData(actualData[0]);
+        const actualData =
+          response.data?.findings ||
+          response.data?.findings_set ||
+          response.data ||
+          [];
+
+        setFindings(Array.isArray(actualData) ? actualData : []);
       })
       .catch(console.error);
   }, []);
 
-  console.log("=== CURRENT FINDINGS STATE ===", findings);
+  const getScanValue = (f) =>
+    f.scan_id ?? f.scan ?? f.Scan_ID ?? f.scanId ?? "";
 
-  // Extract unique scans - trying ALL possible field names
-  const uniqueScans = findings
-    .map(f => f.scan_id || f.scan || f.Scan_ID || f.scanId)
-    .filter((id, index, self) => id && self.indexOf(id) === index);
+  const getUrlValue = (f) =>
+    f.target ?? f.url ?? f.Target ?? f.target_url ?? f.targetUrl ?? "";
 
-  console.log("=== UNIQUE SCANS ===", uniqueScans);
+  const uniqueScans = [...new Set(findings.map(getScanValue).filter(Boolean))];
+  const uniqueUrls = [...new Set(findings.map(getUrlValue).filter(Boolean))];
 
-  // Extract unique URLs - trying ALL possible field names
-  const uniqueUrls = findings
-    .map(f => f.target || f.url || FTarget || FUrl)
-    .filter((url, index, self) => url && self.indexOf(url) === index);
+  const filteredFindings = findings.filter((f) => {
+    const scanValue = getScanValue(f);
+    const urlValue = getUrlValue(f);
 
-  console.log("=== UNIQUE URLs ===", uniqueUrls);
-
-  const filteredFindings = findings.filter(f => {
-    // Get the correct field values (trying all possible names)
-    const scanValue = f.scan_id || f.scan || f.Scan_ID || f.scanId;
-    const urlValue = f.target || f.url || f.Target || f.url;
-
-    console.log("=== FILTERING ===", {
-      finding: f.id,
-      scanValue,
-      urlValue,
-      severityFilter,
-      scanFilter,
-      urlFilter
-    });
-
-    // Severity filter
     if (severityFilter !== "All" && f.severity !== severityFilter) {
       return false;
     }
 
-    // Scan ID filter
-    if (scanFilter && scanValue !== scanFilter) {
+    if (scanFilter && String(scanValue) !== String(scanFilter)) {
       return false;
     }
 
-    // URL filter
-    if (urlFilter && urlValue !== urlFilter) {
+    if (urlFilter && String(urlValue) !== String(urlFilter)) {
       return false;
     }
 
-    // Search text filter
     if (searchText) {
       const searchLower = searchText.toLowerCase();
-      if (
-        !f.name.toLowerCase().includes(searchLower) &&
-        !f.id.toLowerCase().includes(searchLower)
-      ) {
+      const name = String(f.name ?? "").toLowerCase();
+      const id = String(f.id ?? "").toLowerCase();
+
+      if (!name.includes(searchLower) && !id.includes(searchLower)) {
         return false;
       }
     }
 
     return true;
   });
-
-  console.log("=== FILTERED FINDINGS COUNT ===", filteredFindings.length);
 
   const getSeverityGradient = (severity) => {
     switch (severity) {
@@ -182,11 +149,8 @@ function Findings() {
   return (
     <Layout>
       <div style={pageStyle}>
-        <h1 style={headerStyle}>
-          🔍 Security Findings
-        </h1>
+        <h1 style={headerStyle}>🔍 Security Findings</h1>
 
-        {/* DEBUG SECTION - Remove this after fixing */}
         <div style={{ 
           background: "#1e293b", 
           padding: "12px", 
@@ -200,15 +164,9 @@ function Findings() {
             <div>Total findings: {findings.length}</div>
             <div>Unique scans: {uniqueScans.join(", ")}</div>
             <div>Unique URLs: {uniqueUrls.join(", ")}</div>
-            {debugData && (
-              <div style={{ marginTop: "8px", color: "#60a5fa" }}>
-                <strong>First finding keys:</strong> {Object.keys(debugData).join(", ")}
-              </div>
-            )}
           </div>
         </div>
 
-        {/* Filter Row */}
         <div style={filterRowStyle}>
           <select
             value={severityFilter}
@@ -276,9 +234,9 @@ function Findings() {
           </thead>
           <tbody>
             {filteredFindings.map((finding) => {
-              const scanValue = finding.scan_id || finding.scan;
-              const urlValue = finding.target || finding.url;
-              
+              const scanValue = getScanValue(finding);
+              const urlValue = getUrlValue(finding);
+
               return (
                 <tr
                   key={finding.id}
