@@ -10,36 +10,46 @@ class NucleiWrapper:
         return shutil.which("nuclei") is not None
 
     @staticmethod
-    def scan(target):
+    def scan(target, extra_args=None):
 
         if not NucleiWrapper.is_available():
             return []
 
-        try:
+        cmd = [
+            "nuclei",
+            "-u",
+            target,
+            "-json",
+            "-silent",
+            "-duc",
+            "-rl", "20"
+        ]
 
+        if extra_args:
+            cmd.extend(extra_args)
+
+        try:
             result = subprocess.run(
-                [
-                    "nuclei",
-                    "-u",
-                    target,
-                    "-json"
-                ],
+                cmd,
                 capture_output=True,
-                text=True
+                text=True,
+                timeout=300
             )
+
+            if result.returncode != 0:
+                print("Nuclei stderr:")
+                print(result.stderr)
 
             findings = []
 
             for line in result.stdout.splitlines():
-
                 try:
-                    findings.append(
-                        json.loads(line)
-                    )
-                except Exception:
-                    pass
+                    findings.append(json.loads(line))
+                except json.JSONDecodeError:
+                    continue
 
             return findings
 
-        except Exception:
+        except Exception as e:
+            print(f"Nuclei Error: {e}")
             return []

@@ -578,6 +578,22 @@
 "network_web_open": [
   "PCI-1.2",
   "ISO-A.13.1"
+],
+"nuclei_exposure": [
+  "PCI-6.2",
+  "ISO-A.12.6",
+  "SOC2-CC7.1"
+],
+
+"default_credentials": [
+  "PCI-8.3",
+  "ISO-A.5.17",
+  "SOC2-CC6.1"
+],
+
+"nuclei_generic": [
+  "ISO-A.8.29",
+  "SOC2-CC7.1"
 ]
 
   }
