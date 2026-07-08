@@ -23,40 +23,47 @@ class IaCScanner:
         if not results:
             return findings
 
-        for failed in results.get(
-            "results",
-            {}
-        ).get(
-            "failed_checks",
-            []
-        ):
+        for report in results:
 
-            findings.append(
-                self._create_finding(
-                    failed.get(
-                        "check_id",
-                        "checkov_rule"
-                    ),
-                    failed.get(
-                        "check_name",
-                        "Checkov Finding"
-                    ),
-                    "fail",
-                    "High",
-                    failed.get(
-                        "check_name",
-                        "Infrastructure Misconfiguration"
-                    ),
-                    failed.get(
-                        "file_path",
-                        path
-                    ),
-                    "Infrastructure misconfiguration may create security risk.",
-                    "Review and fix failed Checkov control.",
-                    "Follow CIS benchmark and least privilege principles.",
-                    "Infrastructure as Code"
-                )
+            failed_checks = report.get(
+                "results",
+                {}
+            ).get(
+                "failed_checks",
+                []
             )
+
+            for failed in failed_checks:
+
+                findings.append(
+                    self._create_finding(
+                        failed.get(
+                            "check_id",
+                            "checkov_failed"
+                        ),
+                        failed.get(
+                            "check_name",
+                            "Checkov Finding"
+                        ),
+                        "fail",
+                        "High",
+                        failed.get(
+                            "check_name",
+                            "Infrastructure Misconfiguration"
+                        ),
+                        failed.get(
+                            "file_path",
+                            path
+                        ),
+                        "Infrastructure misconfiguration may expose cloud resources.",
+                        "Fix the configuration according to Checkov recommendation.",
+                        failed.get(
+                            "guideline",
+                            "Follow security best practices."
+                        ),
+                        "Infrastructure as Code"
+                    )
+                )
 
         return findings
 
