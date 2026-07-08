@@ -6,16 +6,16 @@ class SSLScanWrapper:
 
     @staticmethod
     def is_available():
-
-        return shutil.which(
-            "sslscan"
-        ) is not None
+        return shutil.which("sslscan") is not None
 
     @staticmethod
     def scan(target):
 
         if not SSLScanWrapper.is_available():
             return ""
+
+        target = target.replace("https://", "")
+        target = target.replace("http://", "")
 
         try:
 
@@ -31,5 +31,4 @@ class SSLScanWrapper:
             return result.stdout
 
         except Exception:
-
             return ""

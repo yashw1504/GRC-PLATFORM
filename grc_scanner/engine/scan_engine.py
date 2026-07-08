@@ -97,6 +97,8 @@ from grc_scanner.storage.report_repository import (
     ReportRepository
 )
 
+from grc_scanner.scanners.apk.apk_scanner import APKScanner
+
 class ScanEngine:
 
     def __init__(self):
@@ -117,6 +119,7 @@ class ScanEngine:
         self.ssl_scanner = SSLScanner()
         self.sbom_scanner = SBOMScanner()
         self.api_scanner = APIScanner()
+        self.apk_scanner = APKScanner()
 
     def run(self, target, scan_type="website"):
 
@@ -128,7 +131,7 @@ class ScanEngine:
 
         findings = []
 
-        findings.extend(self.web_scanner.scan(target))
+        #findings.extend(self.web_scanner.scan(target))
 
         parsed_host = (
             target
@@ -190,12 +193,10 @@ class ScanEngine:
                 )
             )
 
-        elif scan_type == "source":
+        elif scan_type == "api":
 
             findings.extend(
-                self.secrets_scanner.scan(
-                    "."
-                )
+                self.api_scanner.scan(target)
             )
 
         elif scan_type == "iac":
@@ -263,9 +264,6 @@ class ScanEngine:
             )
 
         elif scan_type == "source":
-            findings.extend(
-                self.source_scanner.scan(".")
-            )
 
             findings.extend(
                 self.secrets_scanner.scan(".")
