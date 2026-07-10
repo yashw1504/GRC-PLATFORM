@@ -30,6 +30,7 @@ from grc_scanner.storage.scan_repository import ScanRepository
 from grc_scanner.storage.findings_repository import FindingsRepository
 from grc_scanner.storage.compliance_repository import ComplianceRepository
 from grc_scanner.storage.report_repository import ReportRepository
+from grc_scanner.utils.file_utils import FileUtils
 
 
 class ScanEngine:
@@ -105,7 +106,7 @@ class ScanEngine:
             ]
         }
 
-    def _scan_target_for_group(self, scan_type, target):
+    def _scan_target_for_group(self, scan_type, target, source_path=None):
         if scan_type == "network":
             return (
                 target
@@ -115,7 +116,7 @@ class ScanEngine:
             )
 
         if scan_type in {"container", "iac", "kubernetes", "sbom", "cicd", "source"}:
-            return "."
+            return source_path or "."
 
         if scan_type == "apk":
             return target
@@ -125,7 +126,7 @@ class ScanEngine:
 
         return target
 
-    def run(self, target, scan_type="website"):
+    def run(self, target, scan_type="website", source_path=None):
         print("SCAN_ENGINE_RUN_CALLED")
         print()
         print("=" * 60)
@@ -133,7 +134,7 @@ class ScanEngine:
         print("=" * 60)
 
         scanners = self.SCAN_GROUPS.get(scan_type, [])
-        scan_target = self._scan_target_for_group(scan_type, target)
+        scan_target = self._scan_target_for_group(scan_type, target, source_path)
 
         if scan_type == "cloud":
             findings = self.orchestrator.run(scanners)

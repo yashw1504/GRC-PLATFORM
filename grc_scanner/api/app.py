@@ -1,39 +1,19 @@
+import os
+from enum import Enum
+
 from fastapi import FastAPI
-from grc_scanner.storage.dashboard_repository import (
-    DashboardRepository
-)
-from grc_scanner.storage.scan_repository import (
-    ScanRepository
-)
-
-from grc_scanner.storage.findings_repository import (
-    FindingsRepository
-)
-
-from grc_scanner.storage.compliance_repository import (
-    ComplianceRepository
-)
-
+from fastapi import UploadFile, File, Form, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
-from grc_scanner.engine.scan_engine import (
-    ScanEngine
-)
-
-from fastapi.responses import FileResponse
-
-from grc_scanner.storage.report_repository import (
-    ReportRepository
-)
-
-from fastapi.responses import FileResponse
-from grc_scanner.storage.report_repository import (
-    ReportRepository
-)
-
-from fastapi.middleware.cors import CORSMiddleware
-
-from fastapi import UploadFile, File, Form
+from grc_scanner.engine.scan_engine import ScanEngine
+from grc_scanner.storage.dashboard_repository import DashboardRepository
+from grc_scanner.storage.scan_repository import ScanRepository
+from grc_scanner.storage.findings_repository import FindingsRepository
+from grc_scanner.storage.compliance_repository import ComplianceRepository
+from grc_scanner.storage.report_repository import ReportRepository
+from grc_scanner.utils.file_utils import FileUtils
 
 app = FastAPI(
     title="GRC Platform API"
@@ -42,60 +22,62 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://13.233.237.54:5173"
+        origin
+        for origin in [
+            "http://13.233.237.54:5173",
+            os.getenv("FRONTEND_URL")
+        ]
+        if origin
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-class ScanRequest(
-    BaseModel
-):
+
+class ScanType(str, Enum):
+    source = "source"
+    apk = "apk"
+    iac = "iac"
+    container = "container"
+
+
+class ScanRequest(BaseModel):
     target_type: str
     target: str
 
 
 @app.get("/")
 def home():
-
     return {
         "message": "GRC Platform Running"
     }
 
+
 @app.get("/dashboard")
 def dashboard():
+    return DashboardRepository.get_summary()
 
-    return (
-        DashboardRepository.get_summary()
-    )
 
 @app.get("/scans")
 def scans():
+    return ScanRepository.get_scans()
 
-    return (
-        ScanRepository.get_scans()
-    )
 
 @app.get("/findings")
 def findings():
+    return FindingsRepository.get_findings()
 
-    return (
-        FindingsRepository.get_findings()
-    )
 
 @app.get("/compliance")
 def compliance():
+    return ComplianceRepository.get_compliance_scores()
 
-    return (
-        ComplianceRepository.get_compliance_scores()
-    )
 
 @app.post("/scan")
 def run_scan(
     request: ScanRequest
 ):
-
     engine = ScanEngine()
 
     result = engine.run(
@@ -118,23 +100,29 @@ def run_scan(
 
 @app.post("/scan-upload")
 async def scan_upload(
-
-    scan_type: str = Form(...),
-
+    scan_type: ScanType = Form(...),
     file: UploadFile = File(...)
-
 ):
 
-    return {
-        "filename": file.filename,
-        "scan_type": scan_type
-    }
+    saved_file = FileUtils.save_upload(file)
+
+    project_path = FileUtils.extract_archive(saved_file)
+
+    engine = ScanEngine()
+
+    result = engine.run(
+        target=project_path,
+        scan_type=scan_type.value,
+        source_path=project_path
+    )
+
+    return result
+
 
 @app.get("/scans/{scan_id}")
 def scan_details(
     scan_id: int
 ):
-
     return {
         "scan":
             ScanRepository.get_scan(
@@ -154,19 +142,20 @@ def scan_details(
             )
     }
 
+
 @app.get(
     "/reports/{scan_id}"
 )
 def get_reports(
     scan_id: int
 ):
-
     return (
         ReportRepository
         .get_reports_by_scan(
             scan_id
         )
     )
+
 
 @app.get(
     "/download/{scan_id}/{report_type}"
@@ -175,7 +164,6 @@ def download_report(
     scan_id: int,
     report_type: str
 ):
-
     reports = (
         ReportRepository
         .get_reports_by_scan(
@@ -184,24 +172,27 @@ def download_report(
     )
 
     for report in reports:
-
         if (
             report["type"]
             ==
             report_type
         ):
+            if not os.path.exists(report["path"]):
+                raise HTTPException(
+                    status_code=404,
+                    detail="Report file not found"
+                )
 
             return FileResponse(
                 report["path"],
-                filename=
-                report["path"]
-                .split("/")[-1]
+                filename=os.path.basename(report["path"])
             )
 
-    return {
-        "error":
-        "Report not found"
-    }
+    raise HTTPException(
+        status_code=404,
+        detail="Report not found"
+    )
+
 
 @app.get(
     "/compliance/{scan_id}"
@@ -209,7 +200,6 @@ def download_report(
 def compliance_by_scan(
     scan_id: int
 ):
-
     return (
         ComplianceRepository
         .get_scores_by_scan(
@@ -217,27 +207,13 @@ def compliance_by_scan(
         )
     )
 
-@app.get(
-    "/compliance/{scan_id}"
-)
-def compliance_by_scan(
-    scan_id: int
-):
-
-    return (
-        ComplianceRepository
-        .get_scores_by_scan(
-            scan_id
-        )
-    )
 
 @app.get(
     "/download-report/{report_id}"
 )
-def download_report(
+def download_report_by_id(
     report_id: int
 ):
-
     report = (
         ReportRepository
         .get_report_by_id(
@@ -246,14 +222,18 @@ def download_report(
     )
 
     if not report:
+        raise HTTPException(
+            status_code=404,
+            detail="Report not found"
+        )
 
-        return {
-            "error": "Report not found"
-        }
+    if not os.path.exists(report["path"]):
+        raise HTTPException(
+            status_code=404,
+            detail="Report file not found"
+        )
 
     return FileResponse(
         report["path"],
-        filename=
-        report["path"]
-        .split("/")[-1]
+        filename=os.path.basename(report["path"])
     )
