@@ -15,9 +15,7 @@ class IaCScanner:
         return self._scan_with_fallback(path)
 
     def _scan_with_checkov(self, path):
-
         findings = []
-
         results = CheckovWrapper.scan(path)
 
         if not results:
@@ -25,63 +23,54 @@ class IaCScanner:
 
         for report in results:
 
-            failed_checks = report.get(
-                "results",
-                {}
-            ).get(
-                "failed_checks",
-                []
-            )
+            if not isinstance(report, dict):
+                continue
+
+            results_block = report.get("results")
+
+            if not isinstance(results_block, dict):
+                continue
+
+            if not isinstance(results_block, dict):
+                continue
+
+            failed_checks = results_block.get("failed_checks", [])
 
             for failed in failed_checks:
+                severity = failed.get("severity", "MEDIUM")
+
+                if isinstance(severity, dict):
+                    severity = severity.get("level", "MEDIUM")
+
+                severity = str(severity).capitalize()
+
+                file_path = failed.get("file_path", path)
+                file_line_range = failed.get("file_line_range", "")
+                if file_line_range:
+                    evidence = f"{file_path}:{file_line_range}"
+                else:
+                    evidence = file_path
 
                 findings.append(
                     self._create_finding(
-                        failed.get(
-                            "check_id",
-                            "checkov_failed"
-                        ),
-                        failed.get(
-                            "check_name",
-                            "Checkov Finding"
-                        ),
+                        failed.get("check_id", "checkov_failed"),
+                        failed.get("check_name", "Checkov Finding"),
                         "fail",
-                        "High",
+                        severity,
                         failed.get(
-                            "check_name",
-                            "Infrastructure Misconfiguration"
+                            "description",
+                            failed.get(
+                                "check_name",
+                                "Infrastructure Misconfiguration"
+                            )
                         ),
-                        failed.get(
-                            "file_path",
-                            path
-                        ),
+                        evidence,
                         "Infrastructure misconfiguration may expose cloud resources.",
                         "Fix the configuration according to Checkov recommendation.",
-                        failed.get(
-                            "guideline",
-                            "Follow security best practices."
-                        ),
-                        "Infrastructure as Code"
+                        failed.get("guideline", "Follow security best practices."),
+                        failed.get("check_class", "Infrastructure as Code")
                     )
                 )
-
-        return findings
-
-        for failed in results.get("results", {}).get("failed_checks", []):
-            findings.append(
-                self._create_finding(
-                    failed.get("check_id"),
-                    failed.get("check_name"),
-                    "fail",
-                    "High",
-                    failed.get("check_name"),
-                    failed.get("file_path"),
-                    "Infrastructure misconfiguration",
-                    "Fix configuration",
-                    "Follow CIS benchmark",
-                    "Infrastructure as Code"
-                )
-            )
 
         return findings
 
@@ -92,38 +81,12 @@ class IaCScanner:
 
         for tf_file in tf_files:
             try:
-                content = tf_file.read_text(
-                    encoding="utf-8",
-                    errors="ignore"
-                )
+                content = tf_file.read_text(encoding="utf-8", errors="ignore")
 
-                findings.extend(
-                    self._check_public_s3(
-                        tf_file,
-                        content
-                    )
-                )
-
-                findings.extend(
-                    self._check_open_security_group(
-                        tf_file,
-                        content
-                    )
-                )
-
-                findings.extend(
-                    self._check_admin_policy(
-                        tf_file,
-                        content
-                    )
-                )
-
-                findings.extend(
-                    self._check_unencrypted_storage(
-                        tf_file,
-                        content
-                    )
-                )
+                findings.extend(self._check_public_s3(tf_file, content))
+                findings.extend(self._check_open_security_group(tf_file, content))
+                findings.extend(self._check_admin_policy(tf_file, content))
+                findings.extend(self._check_unencrypted_storage(tf_file, content))
 
             except Exception:
                 pass
@@ -175,10 +138,7 @@ class IaCScanner:
     def _check_admin_policy(self, file, content):
         findings = []
 
-        if (
-            'Action = "*"' in content
-            or '"*"' in content
-        ):
+        if 'Action = "*"' in content or '"*"' in content:
             findings.append(
                 self._create_finding(
                     "iac_terraform_iam_full_admin",

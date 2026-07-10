@@ -13,28 +13,38 @@ class CheckovWrapper:
     def scan(path="."):
 
         if not CheckovWrapper.is_available():
-            return {}
+            return []
+
+        cmd = [
+            "checkov",
+            "-d",
+            path,
+            "-o",
+            "json"
+        ]
 
         try:
-
             result = subprocess.run(
-                [
-                    "checkov",
-                    "-d",
-                    path,
-                    "-o",
-                    "json"
-                ],
+                cmd,
                 capture_output=True,
-                text=True
+                text=True,
+                timeout=300
             )
 
-            if not result.stdout:
-                return {}
+            if not result.stdout.strip():
+                return []
 
-            return json.loads(
-                result.stdout
-            )
+            data = json.loads(result.stdout)
 
-        except Exception:
-            return {}
+            # Checkov may return a dict or a list
+            if isinstance(data, dict):
+                return [data]
+
+            if isinstance(data, list):
+                return data
+
+            return []
+
+        except Exception as e:
+            print(f"Checkov Error: {e}")
+            return []

@@ -72,4 +72,16 @@ class FileUtils:
         else:
             raise Exception("Unsupported archive")
 
+        items = os.listdir(extract_path)
+
+        if len(items) == 1:
+
+            first = os.path.join(
+                extract_path,
+                items[0]
+            )
+
+            if os.path.isdir(first):
+                return first
+
         return extract_path
