@@ -33,6 +33,8 @@ from grc_scanner.storage.report_repository import (
 
 from fastapi.middleware.cors import CORSMiddleware
 
+from fastapi import UploadFile, File, Form
+
 app = FastAPI(
     title="GRC Platform API"
 )
@@ -112,6 +114,20 @@ def run_scan(
         "compliance_scores": result[
             "compliance_scores"
         ]
+    }
+
+@app.post("/scan-upload")
+async def scan_upload(
+
+    scan_type: str = Form(...),
+
+    file: UploadFile = File(...)
+
+):
+
+    return {
+        "filename": file.filename,
+        "scan_type": scan_type
     }
 
 @app.get("/scans/{scan_id}")

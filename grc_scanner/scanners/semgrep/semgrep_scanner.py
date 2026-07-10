@@ -22,12 +22,13 @@ class SemgrepScanner:
         for item in results:
 
             extra = item.get("extra", {})
-
             metadata = extra.get("metadata", {})
 
-            severity = extra.get(
-                "severity",
-                "WARNING"
+            severity = str(
+                extra.get(
+                    "severity",
+                    "WARNING"
+                )
             ).lower()
 
             if severity == "error":
@@ -39,19 +40,107 @@ class SemgrepScanner:
             else:
                 severity = "Medium"
 
+            check_id = item.get(
+                "check_id",
+                "semgrep_rule"
+            )
+
+            name = (
+                extra.get("message")
+                or metadata.get("shortDescription")
+                or check_id
+            )
+
+            path_name = item.get(
+                "path",
+                "Unknown"
+            )
+
+            line = (
+                item.get(
+                    "start",
+                    {}
+                ).get(
+                    "line",
+                    "?"
+                )
+            )
+
+            code = extra.get(
+                "lines",
+                ""
+            )
+
+            evidence = (
+                f"File: {path_name}\n"
+                f"Line: {line}\n"
+                f"{code}"
+            )
+
+            fix = metadata.get(
+                "fix"
+            )
+
+            references = metadata.get(
+                "references",
+                []
+            )
+
+            if isinstance(
+                references,
+                str
+            ):
+                references = [references]
+
+            if fix:
+                recommendation = fix
+
+            elif references:
+                recommendation = references[0]
+
+            else:
+                recommendation = (
+                    "Review and remediate the affected code."
+                )
+
+            business_impact = (
+                "Potential source code vulnerability "
+                "identified during static analysis."
+            )
+
+            rule = check_id.lower()
+
+            if "sql" in rule:
+                category = "Injection"
+
+            elif "xss" in rule:
+                category = "Cross-Site Scripting"
+
+            elif "command" in rule:
+                category = "Command Injection"
+
+            elif "jwt" in rule:
+                category = "Authentication"
+
+            elif "secret" in rule:
+                category = "Secrets"
+
+            elif "github-actions" in rule:
+                category = "CI/CD"
+
+            elif "docker" in rule:
+                category = "Container"
+
+            else:
+                category = "SAST"
+
             findings.append(
 
                 self._create_finding(
 
-                    check_id=item.get(
-                        "check_id",
-                        "semgrep_rule"
-                    ),
+                    check_id=check_id,
 
-                    name=item.get(
-                        "check_id",
-                        "Semgrep Finding"
-                    ),
+                    name=name,
 
                     status="fail",
 
@@ -62,32 +151,18 @@ class SemgrepScanner:
                         "Semgrep finding"
                     ),
 
-                    evidence=(
-                        f"{item.get('path')} : "
-                        f"Line {item.get('start', {}).get('line')}"
-                    ),
+                    evidence=evidence,
 
-                    business_impact=(
-                        "Potential source code vulnerability."
-                    ),
+                    business_impact=business_impact,
 
                     remediation=(
-                        metadata.get(
-                            "fix",
-                            "Review the affected code."
-                        )
+                        "Fix the affected code according "
+                        "to secure coding practices."
                     ),
 
-                    recommendation=(
-                        metadata.get(
-                            "references",
-                            ["Review Semgrep documentation."]
-                        )[0]
-                        if metadata.get("references")
-                        else "Review Semgrep documentation."
-                    ),
+                    recommendation=recommendation,
 
-                    category="SAST"
+                    category=category
 
                 )
 
@@ -110,18 +185,31 @@ class SemgrepScanner:
     ):
 
         finding = Finding(
+
             check_id=check_id,
+
             name=name,
+
             status=status,
+
             severity=severity,
+
             description=description,
+
             evidence=evidence,
+
             business_impact=business_impact,
+
             remediation=remediation,
+
             recommendation=recommendation,
+
             category=category,
+
             scanner_name=self.name,
+
             target_type="source"
+
         )
 
         return RiskEngine.enrich_finding(
