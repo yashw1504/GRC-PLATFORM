@@ -138,7 +138,7 @@ function ScanDetails() {
             }}
           >
             <a
-              href={`http://13.232.166.187:8000/download/${id}/json`}
+              href={`http://34.228.69.213:8000/download/${id}/json`}
               style={{
                 padding: "10px 18px",
                 background: "linear-gradient(90deg, #2563eb, #7c3aed)",
@@ -153,7 +153,7 @@ function ScanDetails() {
             </a>
 
             <a
-              href={`http://13.232.166.187:8000/download/${id}/html`}
+              href={`http://34.228.69.213:8000/download/${id}/html`}
               style={{
                 padding: "10px 18px",
                 background: "linear-gradient(90deg, #1fe4f5, #2563eb)",
@@ -168,7 +168,7 @@ function ScanDetails() {
             </a>
 
             <a
-              href={`http://3.110.88.20:8000/download/${id}/executive`}
+              href={`http://34.228.69.213:8000/download/${id}/executive`}
               style={{
                 padding: "10px 18px",
                 background: "linear-gradient(90deg, #fbbf24, #f59e0b)",
