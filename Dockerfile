@@ -2,28 +2,44 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
+# System packages
 RUN apt-get update && \
-    apt-get install -y wget
-
-RUN apt-get update && apt-get install -y \
+    apt-get install -y \
+    wget \
+    unzip \
+    curl \
+    git \
+    jq \
+    ca-certificates \
     nmap \
-    sslscan
+    sslscan && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && \
-    apt-get install -y wget unzip && \
-    wget https://github.com/projectdiscovery/nuclei/releases/download/v3.4.7/nuclei_3.4.7_linux_amd64.zip && \
-    unzip nuclei_3.4.7_linux_amd64.zip && \
-    mv nuclei /usr/local/bin/ && \
-    chmod +x /usr/local/bin/nuclei && \
-    rm -f nuclei_3.4.7_linux_amd64.zip
+# Copy installer
+COPY docker/install_security_tools.sh /tmp/install_security_tools.sh
+RUN chmod +x /tmp/install_security_tools.sh && \
+    /tmp/install_security_tools.sh
 
+# Verify installation
+COPY docker/verify_security_tools.sh /tmp/verify_security_tools.sh
+RUN chmod +x /tmp/verify_security_tools.sh && \
+    /tmp/verify_security_tools.sh
 
+# Python dependencies
 COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Application
 COPY . .
 
 EXPOSE 8000
 
-CMD ["uvicorn", "grc_scanner.api.app:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD [
+    "uvicorn",
+    "grc_scanner.api.app:app",
+    "--host",
+    "0.0.0.0",
+    "--port",
+    "8000"
+]
