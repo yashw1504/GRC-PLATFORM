@@ -10,6 +10,7 @@
 - Risk Scoring
 - Executive Reports
 - Dashboard
+- APK Scanning
 
 ## Tech Stack
 
