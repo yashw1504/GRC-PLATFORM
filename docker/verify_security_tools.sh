@@ -1,31 +1,32 @@
 #!/bin/bash
 
-set -e
-
 echo "=================================="
 echo "Verifying Security Tools"
 echo "=================================="
 
-python --version
+verify() {
+    echo
+    echo "Checking: $1"
+    if eval "$2"; then
+        echo "✅ $1 OK"
+    else
+        echo "❌ $1 FAILED"
+    fi
+}
 
-nmap --version
+verify "Python" "python3 --version"
+verify "Nmap" "nmap --version"
+verify "SSLScan" "sslscan --version"
+verify "Semgrep" "semgrep --version"
+verify "Checkov" "checkov --version"
+verify "Nuclei" "nuclei -version"
+verify "Syft" "syft version"
+verify "Grype" "grype version"
+verify "Trivy" "trivy --version"
+verify "Gitleaks" "gitleaks version"
+verify "OSV Scanner" "osv-scanner --version"
 
-sslscan --version
-
-semgrep --version
-
-checkov --version
-
-nuclei -version
-
-syft version
-
-grype version
-
-trivy --version
-
-gitleaks version
-
+echo
 echo "=================================="
-echo "All Security Tools Installed"
+echo "Verification Complete"
 echo "=================================="
