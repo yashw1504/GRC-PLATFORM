@@ -14,6 +14,10 @@ import Scans from "./pages/Scans";
 import ScanDetails from "./pages/ScanDetails";
 import ComplianceDetails from "./pages/ComplianceDetails";
 
+// NEW
+import Assets from "./pages/Assets";
+import Credentials from "./pages/Credentials";
+
 function App() {
 
   return (
@@ -36,6 +40,17 @@ function App() {
             element={<RunScan />}
           />
 
+          {/* NEW */}
+          <Route
+            path="/assets"
+            element={<Assets />}
+          />
+
+          <Route
+            path="/credentials"
+            element={<Credentials />}
+          />
+
           <Route
             path="/findings"
             element={<Findings />}
@@ -53,15 +68,12 @@ function App() {
 
           <Route
             path="/scans/:id"
-            element={
-              <ScanDetails />
-            }
+            element={<ScanDetails />}
           />
+
           <Route
             path="/compliance/:id"
-            element={
-              <ComplianceDetails />
-            }
+            element={<ComplianceDetails />}
           />
 
         </Routes>

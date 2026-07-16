@@ -14,6 +14,13 @@ from grc_scanner.storage.findings_repository import FindingsRepository
 from grc_scanner.storage.compliance_repository import ComplianceRepository
 from grc_scanner.storage.report_repository import ReportRepository
 from grc_scanner.utils.file_utils import FileUtils
+from grc_scanner.database.database import Base
+from grc_scanner.database.database import engine
+import grc_scanner.database.models.credential
+import grc_scanner.database.models.asset
+from grc_scanner.api.routes.credentials import router as credential_router
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="GRC Platform API"
@@ -33,7 +40,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
+app.include_router(
+    credential_router
+)
 
 class ScanType(str, Enum):
     source = "source"
