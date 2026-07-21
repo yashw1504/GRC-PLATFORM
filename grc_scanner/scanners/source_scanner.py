@@ -1,27 +1,25 @@
-"""Source code scanner - Semgrep SAST + Gitleaks"""
+"""Source code scanner using Semgrep"""
 from grc_scanner.scanners.base_scanner import BaseScanner
 from grc_scanner.integrations.semgrep_wrapper import SemgrepWrapper
-from grc_scanner.integrations.gitleaks_wrapper import GitleaksWrapper
-from grc_scanner.converters.semgrep_converter import SemgrepConverter
-from grc_scanner.converters.gitleaks_converter import GitleaksConverter
 
 class SourceScanner(BaseScanner):
     def __init__(self):
         self.name = "SourceScanner"
 
     def scan(self, path=".", **kwargs):
-        all_findings = []
-
-        # SAST with Semgrep
+        findings = []
         if SemgrepWrapper.is_available():
             print(f"[SourceScanner] Running Semgrep on {path}")
             raw = SemgrepWrapper.scan(path)
-            all_findings.extend(SemgrepConverter.convert(raw))
-
-        # Secrets with Gitleaks
-        if GitleaksWrapper.is_available():
-            print(f"[SourceScanner] Running Gitleaks on {path}")
-            raw = GitleaksWrapper.scan(path)
-            all_findings.extend(GitleaksConverter.convert(raw))
-
-        return all_findings
+            if isinstance(raw, dict):
+                for item in raw.get("results", []):
+                    findings.append({
+                        "check_id": item.get("check_id", "semgrep_unknown"),
+                        "name": item.get("extra", {}).get("message", "Unknown")[:200],
+                        "status": "fail",
+                        "severity": item.get("extra", {}).get("severity", "WARNING"),
+                        "evidence": f"{item.get('path', '')}:{item.get('start', {}).get('line', '')}"[:200],
+                        "category": "SAST",
+                        "scanner_name": "semgrep"
+                    })
+        return findings
