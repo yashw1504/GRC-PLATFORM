@@ -10,3 +10,11 @@ frontend/dist
 
 reports
 output/.
+.env
+.git
+__pycache__
+*.pyc
+node_modules
+uploads
+extracted
+output

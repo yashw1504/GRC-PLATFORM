@@ -7,7 +7,7 @@ echo "=================================="
 verify() {
     echo
     echo "Checking: $1"
-    if eval "$2"; then
+    if eval "$2" 2>/dev/null; then
         echo "✅ $1 OK"
     else
         echo "❌ $1 FAILED"

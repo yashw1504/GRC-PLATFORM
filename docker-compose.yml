@@ -1,29 +1,57 @@
 version: "3.9"
 
 services:
+  db:
+    image: postgres:15-alpine
+    container_name: grc-db
+    environment:
+      POSTGRES_DB: grc_platform
+      POSTGRES_USER: grc_user
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-grc_secure_password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U grc_user -d grc_platform"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   backend:
-
     build:
       context: .
-
     container_name: grc-backend
-
     ports:
       - "8000:8000"
-
     env_file:
       - .env
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=grc_platform
+      - DB_USER=grc_user
+      - DB_PASSWORD=${DB_PASSWORD:-grc_secure_password}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./uploads:/app/uploads
+      - ./extracted:/app/extracted
+      - ./output:/app/output
 
   frontend:
-
     build:
       context: ./frontend
-
+      dockerfile: Dockerfile
     container_name: grc-frontend
-
     ports:
       - "5173:5173"
-
     depends_on:
       - backend
+    environment:
+      - VITE_API_URL=http://${EC2_PUBLIC_IP}:8000
+
+volumes:
+  postgres_data:
