@@ -5,7 +5,7 @@
 - Web Security Scanning
 - Network Security Scanning
 - Cloud Security Scanning
-- container Scanning
+- Container Scanning
 - Compliance Mapping
 - Risk Scoring
 - Executive Reports

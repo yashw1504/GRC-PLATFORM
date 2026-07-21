@@ -24,7 +24,7 @@ app.add_middleware(
     allow_origins=[
         origin
         for origin in [
-            "http://43.205.236.141:5173",
+            "http://13.127.12.254:5173",
             os.getenv("FRONTEND_URL")
         ]
         if origin
