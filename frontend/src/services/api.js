@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-// Use environment variable or default to localhost
-const API_BASE = import.meta.env.VITE_API_URL || 'http://13.127.12.254:8000';
+// Use a placeholder that gets replaced at container runtime
+const API_BASE = '__API_URL__' || '/api';
 
 const API = axios.create({
   baseURL: API_BASE,
-  timeout: 300000, // 5 min timeout for scans
+  timeout: 300000,
 });
 
 export default API;
