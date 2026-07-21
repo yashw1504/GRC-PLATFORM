@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// Use a placeholder that gets replaced at container runtime
-const API_BASE = '__API_URL__' || '/api';
+// Use Vite build-time env var, fall back to nginx proxy path
+const API_BASE = import.meta.env.VITE_API_URL || '/api';
 
 const API = axios.create({
   baseURL: API_BASE,
