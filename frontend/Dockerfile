@@ -7,8 +7,7 @@ RUN npm install
 
 COPY . .
 
-# Build with a placeholder - will be replaced at runtime
-ARG VITE_API_URL=/api
+ARG VITE_API_URL=http://localhost:8000
 ENV VITE_API_URL=$VITE_API_URL
 
 RUN npm run build
@@ -16,13 +15,15 @@ RUN npm run build
 FROM nginx:alpine
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Copy a script that replaces the API URL at container startup
-COPY docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod +x /docker-entrypoint.sh
-
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Create a minimal nginx config inline (no external file needed)
+RUN echo 'server { \
+    listen 80; \
+    root /usr/share/nginx/html; \
+    index index.html; \
+    location / { try_files $uri $uri/ /index.html; } \
+    location /api/ { proxy_pass http://backend:8000/; } \
+}' > /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
