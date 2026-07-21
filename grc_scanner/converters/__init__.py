@@ -3,7 +3,5 @@ from grc_scanner.converters.checkov_converter import CheckovConverter
 from grc_scanner.converters.semgrep_converter import SemgrepConverter
 from grc_scanner.converters.gitleaks_converter import GitleaksConverter
 from grc_scanner.converters.trivy_converter import TrivyConverter
-from grc_scanner.converters.syft_converter import SyftConverter
-from grc_scanner.converters.grype_converter import GrypeConverter
 from grc_scanner.converters.sslscan_converter import SSLScanConverter
 from grc_scanner.converters.nmap_converter import NmapConverter
