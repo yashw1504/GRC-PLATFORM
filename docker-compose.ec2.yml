@@ -1,0 +1,90 @@
+# GRC Platform — EC2 production stack
+#
+# Prerequisites on EC2:
+#   1. Install Docker + Docker Compose plugin
+#   2. Clone repo: git clone <repo-url> && cd GRC-PLATFORM
+#   3. Copy and edit env: cp .env.example .env
+#      - Set DB_PASSWORD to a strong value
+#      - Set VAULT_KEY to a long random string
+#      - Set EC2_PUBLIC_IP to your instance public IP (optional, for docs/CORS)
+#   4. Security Group inbound rules:
+#        - 22   (SSH)
+#        - 80   (Frontend UI)  — or map FRONTEND_PORT below
+#        - 8000 (Backend API, optional — frontend proxies /api)
+#
+# Deploy:
+#   docker compose -f docker-compose.ec2.yml up -d --build
+#
+# Access:
+#   UI:  http://<EC2_PUBLIC_IP>
+#   API: http://<EC2_PUBLIC_IP>:8000  (or http://<EC2_PUBLIC_IP>/api via nginx)
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: grc-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: grc_platform
+      POSTGRES_USER: grc_user
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql:ro
+    # Do NOT expose Postgres to the internet on EC2
+    expose:
+      - "5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U grc_user -d grc_platform"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: grc-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: grc_platform
+      DB_USER: grc_user
+      DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./uploads:/app/uploads
+      - ./extracted:/app/extracted
+      - ./output:/app/output
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/')\""]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        # Baked in at build time — nginx proxies /api -> backend:8000
+        VITE_API_URL: /api
+    container_name: grc-frontend
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-80}:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

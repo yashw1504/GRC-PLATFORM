@@ -1,8 +1,8 @@
-
 services:
   db:
     image: postgres:15-alpine
     container_name: grc-db
+    restart: unless-stopped
     environment:
       POSTGRES_DB: grc_platform
       POSTGRES_USER: grc_user
@@ -10,8 +10,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
-    ports:
-      - "5432:5432"
+    # Do not expose Postgres publicly on EC2 — backend connects via Docker network
+    expose:
+      - "5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U grc_user -d grc_platform"]
       interval: 10s
@@ -21,7 +22,9 @@ services:
   backend:
     build:
       context: .
+      dockerfile: Dockerfile
     container_name: grc-backend
+    restart: unless-stopped
     ports:
       - "8000:8000"
     env_file:
@@ -32,6 +35,8 @@ services:
       - DB_NAME=grc_platform
       - DB_USER=grc_user
       - DB_PASSWORD=${DB_PASSWORD:-grc_secure_password}
+      - EC2_PUBLIC_IP=13.203.104.20
+      - FRONTEND_URL=http://13.203.104.20
     depends_on:
       db:
         condition: service_healthy
@@ -44,13 +49,15 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        # Browser calls /api on the same host; nginx proxies to backend
+        VITE_API_URL: /api
     container_name: grc-frontend
+    restart: unless-stopped
     ports:
-      - "5173:80"
+      - "80:80"
     depends_on:
       - backend
-    environment:
-      - VITE_API_URL=/api
 
 volumes:
   postgres_data:
