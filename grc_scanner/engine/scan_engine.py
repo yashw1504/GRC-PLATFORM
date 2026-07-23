@@ -46,6 +46,8 @@ class ScanEngine:
             "full": ["website", "source", "container", "iac", "secrets", "vulnerability"],
         }
 
+        self.SUPPORTED_SCAN_TYPES = set(self.SCAN_GROUPS.keys())
+
     def _finding_to_dict(self, finding):
         """Convert a finding (dict or Finding object) to dict"""
         if hasattr(finding, 'to_dict'):
@@ -59,7 +61,14 @@ class ScanEngine:
         print(f"Starting {scan_type.upper()} scan on {target}")
         print("=" * 60)
 
-        scanner_names = self.SCAN_GROUPS.get(scan_type, ["website"])
+        scanner_names = self.SCAN_GROUPS.get(scan_type)
+        if not scanner_names:
+            supported = ", ".join(sorted(self.SUPPORTED_SCAN_TYPES))
+            raise ValueError(
+                f"Unsupported scan type '{scan_type}'. "
+                f"Supported types: {supported}. "
+                f"Cloud scans (aws/azure/gcp) require stored credentials via /credentials/scan/{{cred_id}}."
+            )
         all_findings = []
 
         for name in scanner_names:

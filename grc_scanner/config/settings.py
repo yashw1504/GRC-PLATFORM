@@ -40,8 +40,6 @@ class Settings:
 
     # GCP
 
-GOOGLE_APPLICATION_CREDENTIALS = (
-    os.getenv(
+    GOOGLE_APPLICATION_CREDENTIALS = os.getenv(
         "GOOGLE_APPLICATION_CREDENTIALS"
     )
-)

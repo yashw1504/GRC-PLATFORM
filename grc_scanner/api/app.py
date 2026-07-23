@@ -64,7 +64,10 @@ def compliance():
 @app.post("/scan")
 def run_scan(request: ScanRequest):
     engine = ScanEngine()
-    result = engine.run(request.target, request.target_type)
+    try:
+        result = engine.run(request.target, request.target_type)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
     # Convert findings to dicts for JSON response
     result["findings"] = [f.to_dict() for f in result["findings"]]
     return result

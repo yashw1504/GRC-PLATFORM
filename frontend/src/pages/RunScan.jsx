@@ -40,10 +40,25 @@ function RunScan() {
       setResult(null);
       startTimer();
 
-      const response = await API.post("/scan", {
-        target: target,
-        target_type: targetType
-      });
+      let response;
+
+      if (file) {
+        const formData = new FormData();
+        const uploadScanType = ["source", "iac", "container", "secrets", "vulnerability"].includes(targetType)
+          ? targetType
+          : "source";
+        formData.append("scan_type", uploadScanType);
+        formData.append("file", file);
+
+        response = await API.post("/scan-upload", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+      } else {
+        response = await API.post("/scan", {
+          target: target,
+          target_type: targetType,
+        });
+      }
 
       setResult(response.data);
     } catch (error) {
