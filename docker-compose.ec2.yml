@@ -1,24 +1,5 @@
-# GRC Platform — EC2 production stack
-#
-# Prerequisites on EC2:
-#   1. Install Docker + Docker Compose plugin
-#   2. Clone repo: git clone <repo-url> && cd GRC-PLATFORM
-#   3. Copy and edit env: cp .env.example .env
-#      - Set DB_PASSWORD to a strong value
-#      - Set VAULT_KEY to a long random string
-#      - Set EC2_PUBLIC_IP to your instance public IP (optional, for docs/CORS)
-#   4. Security Group inbound rules:
-#        - 22   (SSH)
-#        - 80   (Frontend UI)  — or map FRONTEND_PORT below
-#        - 8000 (Backend API, optional — frontend proxies /api)
-#
-# Deploy:
-#   docker compose -f docker-compose.ec2.yml up -d --build
-#
-# Access:
-#   UI:  http://<EC2_PUBLIC_IP>
-#   API: http://<EC2_PUBLIC_IP>:8000  (or http://<EC2_PUBLIC_IP>/api via nginx)
-
+# EC2 deployment. This file is standalone: it pulls published images and
+# requires only this file plus a populated .env file on the server.
 services:
   db:
     image: postgres:15-alpine
@@ -30,8 +11,6 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql:ro
-    # Do NOT expose Postgres to the internet on EC2
     expose:
       - "5432"
     healthcheck:
@@ -42,9 +21,8 @@ services:
       start_period: 10s
 
   backend:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: yash1508/grc-backend:latest
+    pull_policy: always
     container_name: grc-backend
     restart: unless-stopped
     ports:
@@ -57,6 +35,9 @@ services:
       DB_NAME: grc_platform
       DB_USER: grc_user
       DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+      EC2_PUBLIC_IP: ${EC2_PUBLIC_IP:?Set EC2_PUBLIC_IP in .env}
+      FRONTEND_URL: http://${EC2_PUBLIC_IP:?Set EC2_PUBLIC_IP in .env}
+    command: ["sh", "-c", "python -m grc_scanner.db_init && exec uvicorn grc_scanner.api.app:app --host 0.0.0.0 --port 8000"]
     depends_on:
       db:
         condition: service_healthy
@@ -72,12 +53,8 @@ services:
       start_period: 40s
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-      args:
-        # Baked in at build time — nginx proxies /api -> backend:8000
-        VITE_API_URL: /api
+    image: yash1508/grc-frontend:latest
+    pull_policy: always
     container_name: grc-frontend
     restart: unless-stopped
     ports:

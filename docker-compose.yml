@@ -9,7 +9,6 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD:-grc_secure_password}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
     # Do not expose Postgres publicly on EC2 — backend connects via Docker network
     expose:
       - "5432"
@@ -20,9 +19,8 @@ services:
       retries: 5
 
   backend:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: yash1508/grc-backend:latest
+    pull_policy: always
     container_name: grc-backend
     restart: unless-stopped
     ports:
@@ -35,8 +33,11 @@ services:
       - DB_NAME=grc_platform
       - DB_USER=grc_user
       - DB_PASSWORD=${DB_PASSWORD:-grc_secure_password}
-      - EC2_PUBLIC_IP=13.203.104.20
-      - FRONTEND_URL=http://13.203.104.20
+      - EC2_PUBLIC_IP=${EC2_PUBLIC_IP:?Set EC2_PUBLIC_IP in .env}
+      - FRONTEND_URL=http://${EC2_PUBLIC_IP:?Set EC2_PUBLIC_IP in .env}
+    # The production compose file is intentionally standalone: the backend
+    # creates its schema, so EC2 does not need a copied init_db.sql file.
+    command: ["sh", "-c", "python -m grc_scanner.db_init && exec uvicorn grc_scanner.api.app:app --host 0.0.0.0 --port 8000"]
     depends_on:
       db:
         condition: service_healthy
@@ -46,12 +47,8 @@ services:
       - ./output:/app/output
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-      args:
-        # Browser calls /api on the same host; nginx proxies to backend
-        VITE_API_URL: /api
+    image: yash1508/grc-frontend:latest
+    pull_policy: always
     container_name: grc-frontend
     restart: unless-stopped
     ports:
