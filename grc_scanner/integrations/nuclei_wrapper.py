@@ -37,8 +37,8 @@ class NucleiWrapper:
             )
 
             if result.returncode != 0:
-                print("Nuclei stderr:")
-                print(result.stderr)
+                detail = result.stderr.strip() or result.stdout.strip() or "no diagnostic output"
+                print(f"[Nuclei] exited with code {result.returncode}: {detail}")
 
             findings = []
 
@@ -47,6 +47,9 @@ class NucleiWrapper:
                     findings.append(json.loads(line))
                 except json.JSONDecodeError:
                     continue
+
+            if not findings and result.returncode == 0:
+                print("[Nuclei] Completed with no template matches")
 
             return findings
 

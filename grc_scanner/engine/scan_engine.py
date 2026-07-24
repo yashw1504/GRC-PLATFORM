@@ -37,7 +37,10 @@ class ScanEngine:
         }
 
         self.SCAN_GROUPS = {
-            "website": ["website", "vulnerability"],
+            # WebsiteScanner already runs Nuclei, SSLScan, and Nmap. Keep the
+            # separate vulnerability scanner for explicit vulnerability scans
+            # so a website request does not run Nuclei twice or run Trivy on a URL.
+            "website": ["website"],
             "source": ["source", "secrets"],
             "container": ["container"],
             "iac": ["iac"],
