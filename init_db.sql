@@ -57,6 +57,27 @@ CREATE TABLE IF NOT EXISTS cloud_credentials (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Upgrade databases created by older releases without replacing data.
+ALTER TABLE scans ADD COLUMN IF NOT EXISTS scan_type VARCHAR(50) DEFAULT 'website';
+ALTER TABLE scans ADD COLUMN IF NOT EXISTS scan_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
+ALTER TABLE findings ADD COLUMN IF NOT EXISTS status VARCHAR(50);
+ALTER TABLE findings ADD COLUMN IF NOT EXISTS severity VARCHAR(50);
+ALTER TABLE findings ADD COLUMN IF NOT EXISTS risk_score INTEGER DEFAULT 0;
+ALTER TABLE findings ADD COLUMN IF NOT EXISTS priority VARCHAR(50);
+ALTER TABLE findings ADD COLUMN IF NOT EXISTS description TEXT;
+ALTER TABLE findings ADD COLUMN IF NOT EXISTS evidence TEXT;
+ALTER TABLE findings ADD COLUMN IF NOT EXISTS category VARCHAR(200);
+ALTER TABLE findings ADD COLUMN IF NOT EXISTS target_type VARCHAR(100);
+ALTER TABLE findings ADD COLUMN IF NOT EXISTS target_asset VARCHAR(500);
+ALTER TABLE findings ADD COLUMN IF NOT EXISTS scanner_name VARCHAR(200);
+ALTER TABLE findings ADD COLUMN IF NOT EXISTS remediation TEXT;
+ALTER TABLE findings ADD COLUMN IF NOT EXISTS recommendation TEXT;
+ALTER TABLE findings ADD COLUMN IF NOT EXISTS business_impact TEXT;
+ALTER TABLE findings ADD COLUMN IF NOT EXISTS mapped_controls TEXT[];
+ALTER TABLE findings ADD COLUMN IF NOT EXISTS raw_data JSONB;
+ALTER TABLE findings ADD COLUMN IF NOT EXISTS created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
 CREATE INDEX IF NOT EXISTS idx_findings_scan_id ON findings(scan_id);
 CREATE INDEX IF NOT EXISTS idx_findings_severity ON findings(severity);
 CREATE INDEX IF NOT EXISTS idx_compliance_scan_id ON compliance_scores(scan_id);
