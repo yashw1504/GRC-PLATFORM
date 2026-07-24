@@ -14,15 +14,7 @@ RUN npm run build
 
 FROM nginx:alpine
 COPY --from=build /app/dist /usr/share/nginx/html
-
-# Create a minimal nginx config inline (no external file needed)
-RUN echo 'server { \
-    listen 80; \
-    root /usr/share/nginx/html; \
-    index index.html; \
-    location / { try_files $uri $uri/ /index.html; } \
-    location /api/ { proxy_pass http://backend:8000/; } \
-}' > /etc/nginx/conf.d/default.conf
+COPY nginx.config /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
