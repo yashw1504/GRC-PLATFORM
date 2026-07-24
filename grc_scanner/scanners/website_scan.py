@@ -2,6 +2,7 @@
 from grc_scanner.scanners.base_scanner import BaseScanner
 from grc_scanner.integrations.nuclei_wrapper import NucleiWrapper
 from grc_scanner.integrations.sslscan_wrapper import SSLScanWrapper
+from grc_scanner.converters.nmap_converter import NmapConverter
 import subprocess
 import os
 
@@ -18,6 +19,8 @@ class WebsiteScanner(BaseScanner):
             raw = NucleiWrapper.scan(target)
             # Convert raw dicts to Finding objects
             all_findings.extend(self._convert_nuclei(raw))
+        else:
+            print("[WebsiteScanner] Nuclei is not installed; skipping template scan")
 
         # 2. SSL scan
         if SSLScanWrapper.is_available():
@@ -33,24 +36,20 @@ class WebsiteScanner(BaseScanner):
                     "raw_output": raw[:1000],
                     "scanner_name": "sslscan"
                 })
+        else:
+            print("[WebsiteScanner] SSLScan is not installed; skipping TLS scan")
 
         # 3. Quick nmap
         host = target.replace("https://", "").replace("http://", "").split("/")[0]
         try:
             result = subprocess.run(
-                ["nmap", "-F", host],
+                ["nmap", "-sV", "-F", host],
                 capture_output=True, text=True, timeout=120
             )
             if result.stdout:
-                all_findings.append({
-                    "check_id": "nmap_scan_complete",
-                    "name": f"Nmap scan of {host}",
-                    "status": "info",
-                    "severity": "Info",
-                    "evidence": host,
-                    "raw_output": result.stdout[:2000],
-                    "scanner_name": "nmap"
-                })
+                all_findings.extend(NmapConverter.convert(result.stdout, host))
+            if result.returncode not in (0, 1):
+                print(f"[WebsiteScanner] Nmap exited with {result.returncode}: {result.stderr.strip()}")
         except Exception as e:
             print(f"[WebsiteScanner] Nmap error: {e}")
 
