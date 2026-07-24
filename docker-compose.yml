@@ -1,23 +1,5 @@
+# EC2 deployment using Neon PostgreSQL. Requires a .env file in this folder.
 services:
-  db:
-    image: postgres:15-alpine
-    container_name: grc-db
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: grc_platform
-      POSTGRES_USER: grc_user
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-grc_secure_password}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    # Do not expose Postgres publicly on EC2 — backend connects via Docker network
-    expose:
-      - "5432"
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U grc_user -d grc_platform"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
   backend:
     image: yash1508/grc-backend:latest
     pull_policy: always
@@ -28,23 +10,19 @@ services:
     env_file:
       - .env
     environment:
-      - DB_HOST=db
-      - DB_PORT=5432
-      - DB_NAME=grc_platform
-      - DB_USER=grc_user
-      - DB_PASSWORD=${DB_PASSWORD:-grc_secure_password}
-      - EC2_PUBLIC_IP=${EC2_PUBLIC_IP:?Set EC2_PUBLIC_IP in .env}
-      - FRONTEND_URL=http://${EC2_PUBLIC_IP:?Set EC2_PUBLIC_IP in .env}
-    # The production compose file is intentionally standalone: the backend
-    # creates its schema, so EC2 does not need a copied init_db.sql file.
+      EC2_PUBLIC_IP: ${EC2_PUBLIC_IP:?Set EC2_PUBLIC_IP in .env}
+      FRONTEND_URL: http://${EC2_PUBLIC_IP:?Set EC2_PUBLIC_IP in .env}
     command: ["sh", "-c", "python -m grc_scanner.db_init && exec uvicorn grc_scanner.api.app:app --host 0.0.0.0 --port 8000"]
-    depends_on:
-      db:
-        condition: service_healthy
     volumes:
       - ./uploads:/app/uploads
       - ./extracted:/app/extracted
       - ./output:/app/output
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/')\""]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
   frontend:
     image: yash1508/grc-frontend:latest
@@ -54,7 +32,5 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - backend
-
-volumes:
-  postgres_data:
+      backend:
+        condition: service_healthy

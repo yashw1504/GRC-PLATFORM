@@ -69,7 +69,8 @@ def init_database():
             port=os.getenv("DB_PORT", "5432"),
             database=os.getenv("DB_NAME", "grc_platform"),
             user=os.getenv("DB_USER", "grc_user"),
-            password=os.getenv("DB_PASSWORD", "grc_secure_password")
+            password=os.getenv("DB_PASSWORD", "grc_secure_password"),
+            sslmode=os.getenv("DB_SSLMODE", "prefer"),
         )
         cursor = conn.cursor()
         cursor.execute(INIT_SQL)
