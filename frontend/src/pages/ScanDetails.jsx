@@ -138,7 +138,7 @@ function ScanDetails() {
             }}
           >
             <a
-              href={`/api/download/${id}/json`}
+              href={`http://35.154.254.39:8000/download/${id}/json`}
               style={{
                 padding: "10px 18px",
                 background: "linear-gradient(90deg, #2563eb, #7c3aed)",
@@ -153,7 +153,7 @@ function ScanDetails() {
             </a>
 
             <a
-              href={`/api/download/${id}/html`}
+              href={`http://35.154.254.39:8000/download/${id}/html`}
               style={{
                 padding: "10px 18px",
                 background: "linear-gradient(90deg, #1fe4f5, #2563eb)",
@@ -168,7 +168,7 @@ function ScanDetails() {
             </a>
 
             <a
-              href={`/api/download/${id}/executive`}
+              href={`http://35.154.254.39:8000/download/${id}/executive`}
               style={{
                 padding: "10px 18px",
                 background: "linear-gradient(90deg, #fbbf24, #f59e0b)",
