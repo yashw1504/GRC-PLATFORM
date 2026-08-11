@@ -16,7 +16,10 @@ class SSLScanner:
                 target
             )
 
-        return self._scan_demo()
+        # Do not generate synthetic vulnerabilities when sslscan is absent.
+        # Callers receive an empty result and the deployment health check can
+        # expose the missing binary instead.
+        return []
 
     def _scan_with_sslscan(
         self,

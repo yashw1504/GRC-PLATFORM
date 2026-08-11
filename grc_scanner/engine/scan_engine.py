@@ -63,7 +63,6 @@ class ScanEngine:
                 self.network_scanner,
                 self.ssl_scanner,
                 self.vulnerability_scanner,
-                self.api_scanner
             ],
             "source": [
                 self.semgrep_scanner,
