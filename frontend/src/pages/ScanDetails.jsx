@@ -118,7 +118,7 @@ function ScanDetails() {
               {data.compliance.map((item, index) => (
                 <tr key={index}>
                   <td style={{ ...tdStyle, fontWeight: "600" }}>{item.framework}</td>
-                  <td style={tdStyle}>{item.score}%</td>
+                  <td style={tdStyle}>{item.score == null ? "Not assessed" : `${item.score}%`}</td>
                 </tr>
               ))}
             </tbody>
@@ -180,6 +180,20 @@ function ScanDetails() {
               }}
             >
               📊 Download Executive
+            </a>
+            <a
+              href={`http://35.154.254.39:8000/download/${id}/excel`}
+              style={{
+                padding: "10px 18px",
+                background: "linear-gradient(90deg, #22c55e, #15803d)",
+                color: "white",
+                borderRadius: "8px",
+                textDecoration: "none",
+                fontWeight: "600",
+                boxShadow: "0 6px 16px rgba(34, 197, 94, 0.25)"
+              }}
+            >
+              Download Excel
             </a>
           </div>
         </div>

@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 
 
 @dataclass
@@ -15,6 +15,10 @@ class Finding:
     # Result
     status: str
     severity: str
+
+    # Vulnerability identifiers and CVSS v3/v4 base score when provided
+    cve_id: str = ""
+    cvss_score: Optional[float] = None
 
     # Risk Management
     risk_score: int = 0
@@ -56,6 +60,8 @@ class Finding:
             "name": self.name,
             "status": self.status,
             "severity": self.severity,
+            "cve_id": self.cve_id,
+            "cvss_score": self.cvss_score,
             "risk_score": self.risk_score,
             "priority": self.priority,
             "description": self.description,

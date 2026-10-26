@@ -16,6 +16,16 @@ class RiskEngine:
         return cls.SCORE_MAP.get(severity, 0)
 
     @classmethod
+    def _score(cls, finding):
+        cvss = getattr(finding, "cvss_score", None)
+        if cvss is None:
+            return cls.calculate_finding_score(finding.severity)
+        try:
+            return round(max(0.0, min(float(cvss), 10.0)))
+        except (TypeError, ValueError):
+            return cls.calculate_finding_score(finding.severity)
+
+    @classmethod
     def calculate_priority(cls, severity):
         score = cls.calculate_finding_score(severity)
 
@@ -39,12 +49,18 @@ class RiskEngine:
         Add risk score and priority
         """
 
-        finding.risk_score = cls.calculate_finding_score(
-            finding.severity
-        )
-
-        finding.priority = cls.calculate_priority(
-            finding.severity
+        finding.risk_score = cls._score(finding)
+        score = finding.risk_score
+        try:
+            cvss = float(finding.cvss_score) if finding.cvss_score is not None else score
+        except (TypeError, ValueError):
+            cvss = score
+        finding.priority = (
+            "P1 - Immediate" if cvss >= 9 else
+            "P2 - High" if cvss >= 7 else
+            "P3 - Medium" if cvss >= 4 else
+            "P4 - Low" if cvss > 0 else
+            "P5 - Informational"
         )
 
         return finding
@@ -55,15 +71,20 @@ class RiskEngine:
         Calculate overall risk score
         """
 
-        if not findings:
+        scored_findings = [
+            finding for finding in findings
+            if str(getattr(finding, "status", "")).lower() != "error"
+        ]
+
+        if not scored_findings:
             return 0
 
         total = sum(
             f.risk_score
-            for f in findings
+            for f in scored_findings
         )
 
-        avg = total / len(findings)
+        avg = total / len(scored_findings)
 
         return min(
             round(avg * 10),

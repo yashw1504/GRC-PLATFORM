@@ -8,6 +8,7 @@ except Exception:
 from datetime import datetime
 from grc_scanner.engine.finding import Finding
 from grc_scanner.engine.risk_engine import RiskEngine
+from grc_scanner.engine.scanner_errors import scanner_error_finding
 
 
 class AWSScanner:
@@ -15,14 +16,20 @@ class AWSScanner:
 
     def scan(self):
         if not AWS_AVAILABLE:
-            return self._fallback_scan()
+            return [scanner_error_finding(
+                self.name, "The AWS SDK is not installed; cloud checks were not run.",
+                category="Cloud",
+            )]
 
         try:
             sts = boto3.client("sts")
             sts.get_caller_identity()
             return self._real_scan()
         except Exception:
-            return self._fallback_scan()
+            return [scanner_error_finding(
+                self.name, "AWS credentials or account access are unavailable; cloud checks were not run.",
+                category="Cloud",
+            )]
 
     def _real_scan(self):
         findings = []

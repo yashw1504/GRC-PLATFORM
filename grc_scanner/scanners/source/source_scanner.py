@@ -1,6 +1,7 @@
 from grc_scanner.engine.finding import Finding
 from grc_scanner.engine.risk_engine import RiskEngine
 from grc_scanner.integrations.semgrep_wrapper import SemgrepWrapper
+from grc_scanner.engine.scanner_errors import scanner_error_finding
 
 
 class SourceScanner:
@@ -10,7 +11,10 @@ class SourceScanner:
         findings = []
 
         if not SemgrepWrapper.is_available():
-            return findings
+            return [scanner_error_finding(
+                self.name, "Semgrep is unavailable; source analysis was not completed.",
+                path, category="Source Code",
+            )]
 
         results = SemgrepWrapper.scan(path)
 

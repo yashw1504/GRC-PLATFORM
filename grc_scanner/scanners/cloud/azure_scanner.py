@@ -2,6 +2,7 @@ AZURE_AVAILABLE = False
 
 from grc_scanner.engine.finding import Finding
 from grc_scanner.engine.risk_engine import RiskEngine
+from grc_scanner.engine.scanner_errors import scanner_error_finding
 
 
 class AzureScanner:
@@ -42,25 +43,20 @@ class AzureScanner:
         return findings
 
     def scan(self):
-        print("AZURE_AVAILABLE =", AZURE_AVAILABLE)
-
-        if not AZURE_AVAILABLE:
-            return self._fallback_scan()
-
         try:
             from grc_scanner.cloud.azure_auth import AzureAuth
-
             credential = AzureAuth.get_credential()
-
-            if credential is None:
-                return self._fallback_scan()
-
-            print("USING REAL SCAN")
-            return self._real_scan()
-
         except Exception:
-            print("USING FALLBACK")
-            return self._fallback_scan()
+            credential = None
+        if credential is None:
+            return [scanner_error_finding(
+                self.name, "Azure credentials are not configured; cloud checks were not run.",
+                category="Cloud",
+            )]
+        return [scanner_error_finding(
+            self.name, "Azure SDK checks are not implemented yet; no account findings were fabricated.",
+            category="Cloud",
+        )]
 
     def _fallback_scan(self):
         findings = []

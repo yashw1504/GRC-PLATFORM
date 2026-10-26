@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 
 from grc_scanner.engine.compliance_engine import ComplianceEngine
 from grc_scanner.engine.orchestrator import ScannerOrchestrator
@@ -7,6 +8,7 @@ from grc_scanner.engine.risk_engine import RiskEngine
 from grc_scanner.reporters.json_report import JsonReport
 from grc_scanner.reporters.html_report import HtmlReport
 from grc_scanner.reporters.executive_report import ExecutiveReport
+from grc_scanner.reporters.excel_report import ExcelReport
 
 from grc_scanner.scanners.web.web_scanner import WebScanner
 from grc_scanner.scanners.network.network_scanner import NetworkScanner
@@ -152,9 +154,12 @@ class ScanEngine:
 
         os.makedirs("output", exist_ok=True)
 
-        json_path = f"output/scan_{scan_id}_report.json"
-        html_path = f"output/scan_{scan_id}_report.html"
-        exec_path = f"output/scan_{scan_id}_executive.txt"
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        report_stem = f"scan_{scan_id}_{timestamp}"
+        json_path = f"output/{report_stem}_report.json"
+        html_path = f"output/{report_stem}_report.html"
+        exec_path = f"output/{report_stem}_executive.txt"
+        excel_path = f"output/{report_stem}_report.xlsx"
 
         print("Scan Saved:", scan_id)
 
@@ -191,10 +196,19 @@ class ScanEngine:
         )
         print("Generated:", exec_file)
 
+        excel_file = ExcelReport.generate(
+            findings,
+            compliance_scores,
+            overall_score,
+            output_file=excel_path
+        )
+        print("Generated:", excel_file)
+
         print("Saving JSON Report...")
         print("JSON Exists:", os.path.exists(json_path))
         print("HTML Exists:", os.path.exists(html_path))
         print("EXEC Exists:", os.path.exists(exec_path))
+        print("EXCEL Exists:", os.path.exists(excel_path))
 
         ReportRepository.save_report(scan_id, "json", json_path)
         print("JSON Report Saved")
@@ -206,6 +220,9 @@ class ScanEngine:
         print("Saving Executive Report...")
         ReportRepository.save_report(scan_id, "executive", exec_path)
         print("Executive Report Saved")
+
+        ReportRepository.save_report(scan_id, "excel", excel_path)
+        print("Excel Report Saved")
 
         print()
         print("=" * 60)

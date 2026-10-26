@@ -1,3 +1,4 @@
+from html import escape
 from pathlib import Path
 
 
@@ -110,8 +111,8 @@ td {{
 
             html += f"""
 <tr>
-<td>{framework}</td>
-<td>{score}%</td>
+<td>{escape(str(framework))}</td>
+<td>{escape(str(score)) + '%' if score is not None else 'Not assessed'}</td>
 </tr>
 """
 
@@ -139,12 +140,12 @@ td {{
 
             html += f"""
 <tr>
-<td>{finding.name}</td>
-<td>{finding.status}</td>
-<td>{finding.severity}</td>
-<td>{finding.risk_score}</td>
-<td>{finding.priority}</td>
-<td>{finding.evidence}</td>
+<td>{escape(str(finding.name))}</td>
+<td>{escape(str(finding.status))}</td>
+<td>{escape(str(finding.severity))}</td>
+<td>{escape(str(finding.risk_score))}</td>
+<td>{escape(str(finding.priority))}</td>
+<td>{escape(str(finding.evidence))}</td>
 </tr>
 """
 

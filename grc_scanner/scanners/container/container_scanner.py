@@ -26,6 +26,9 @@ class ContainerScanner:
 
         results = TrivyWrapper.scan(path)
 
+        if not isinstance(results, dict):
+            return []
+
         for result in results.get("Results", []):
 
             for vuln in result.get("Vulnerabilities", []):

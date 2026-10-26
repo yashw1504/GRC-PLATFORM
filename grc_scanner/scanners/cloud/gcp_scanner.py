@@ -2,24 +2,24 @@ GCP_AVAILABLE = False
 
 from grc_scanner.engine.finding import Finding
 from grc_scanner.engine.risk_engine import RiskEngine
+from grc_scanner.engine.scanner_errors import scanner_error_finding
 
 
 class GCPScanner:
     name = "gcp_scanner"
 
     def scan(self):
-        print(
-            "GCP_AVAILABLE =",
-            GCP_AVAILABLE
-        )
-
-        if not GCP_AVAILABLE:
-            return self._fallback_scan()
-
         try:
-            return self._real_scan()
+            from grc_scanner.cloud.gcp_auth import GCPAuth
+            configured = GCPAuth.get_credentials()
         except Exception:
-            return self._fallback_scan()
+            configured = None
+        detail = (
+            "GCP SDK checks are not implemented yet; no account findings were fabricated."
+            if configured else
+            "GCP credentials are not configured; cloud checks were not run."
+        )
+        return [scanner_error_finding(self.name, detail, category="Cloud")]
 
     def _real_scan(self):
         findings = []

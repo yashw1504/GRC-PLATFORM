@@ -1,5 +1,6 @@
 from grc_scanner.engine.finding import Finding
 from grc_scanner.engine.risk_engine import RiskEngine
+from grc_scanner.engine.scanner_errors import scanner_error_finding
 
 
 class DatabaseScanner:
@@ -7,62 +8,12 @@ class DatabaseScanner:
     name = "database_scanner"
 
     def scan(self, target="."):
-
-        findings = []
-
-        findings.extend(
-            self._check_public_access()
-        )
-
-        findings.extend(
-            self._check_default_credentials()
-        )
-
-        findings.extend(
-            self._check_encryption()
-        )
-
-        findings.extend(
-            self._check_backup()
-        )
-
-        findings.extend(
-            self._check_audit_logging()
-        )
-
-        findings.extend(
-            self._check_tls()
-        )
-
-        findings.extend(
-            self._check_cassandra()
-        )
-
-        findings.extend(
-            self._check_hbase()
-        )
-
-        findings.extend(
-            self._check_hive()
-        )
-
-        findings.extend(
-            self._check_postgresql()
-        )
-
-        findings.extend(
-            self._check_mysql()
-        )
-
-        findings.extend(
-            self._check_mongodb()
-        )
-
-        findings.extend(
-            self._check_mssql()
-        )
-
-        return findings
+        return [scanner_error_finding(
+            self.name,
+            "Database checks are not connected to a database client; no database findings were fabricated.",
+            target,
+            category="Database",
+        )]
 
     def _check_public_access(self):
 

@@ -1,0 +1,3153 @@
+{
+  "schema_version": 1,
+  "source": "Generated from scanner source references and frameworks/frameworks.json",
+  "definitions_complete": false,
+  "definition_note": "Code references and mappings are inventory evidence, not authored check definitions.",
+  "checks": [
+    {
+      "id": "admin_panel_exposed",
+      "code_references": [
+        "grc_scanner/scanners/vulnerability/vulnerability_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-7.2",
+        "ISO-A.9.2",
+        "SOC2-CC6.3"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "aks_audit_logging_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.15",
+        "SOC2-CC7.2"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "aks_network_policy_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-1.3",
+        "ISO-A.13.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "aks_private_cluster_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.20",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "aks_public_api",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-1.2",
+        "ISO-A.8.20"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "aks_rbac_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "OWASP-A01",
+        "ISO-A.5.15",
+        "NIST-AC-6"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "NIST",
+        "OWASP"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "aks_secret_encryption_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-3.5",
+        "HIPAA-164.312(a)"
+      ],
+      "mapped_frameworks": [
+        "HIPAA",
+        "PCI"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "api_basic_auth_enabled",
+      "code_references": [
+        "grc_scanner/scanners/api/api_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "api_bola",
+      "code_references": [
+        "grc_scanner/scanners/api/api_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "api_broken_function_auth",
+      "code_references": [
+        "grc_scanner/scanners/api/api_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "api_command_injection",
+      "code_references": [
+        "grc_scanner/scanners/api/api_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "api_content_type",
+      "code_references": [
+        "grc_scanner/scanners/api/api_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "api_cors_wildcard",
+      "code_references": [
+        "grc_scanner/scanners/api/api_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "api_excessive_permissions",
+      "code_references": [
+        "grc_scanner/scanners/api/api_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "api_http_allowed",
+      "code_references": [
+        "grc_scanner/scanners/api/api_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "api_https_enforced",
+      "code_references": [
+        "grc_scanner/scanners/api/api_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "api_missing_security_headers",
+      "code_references": [
+        "grc_scanner/scanners/api/api_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "api_no_authentication",
+      "code_references": [
+        "grc_scanner/scanners/api/api_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "api_no_bruteforce_protection",
+      "code_references": [
+        "grc_scanner/scanners/api/api_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "api_no_rate_limit",
+      "code_references": [
+        "grc_scanner/scanners/api/api_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "api_old_tls",
+      "code_references": [
+        "grc_scanner/scanners/api/api_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "api_pii_exposure",
+      "code_references": [
+        "grc_scanner/scanners/api/api_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "api_sensitive_data_exposure",
+      "code_references": [
+        "grc_scanner/scanners/api/api_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "api_server_header_disclosure",
+      "code_references": [
+        "grc_scanner/scanners/api/api_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "api_sql_injection",
+      "code_references": [
+        "grc_scanner/scanners/api/api_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "api_token_exposure",
+      "code_references": [
+        "grc_scanner/scanners/api/api_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "api_weak_authentication",
+      "code_references": [
+        "grc_scanner/scanners/api/api_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "api_xss",
+      "code_references": [
+        "grc_scanner/scanners/api/api_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "apk_large_size",
+      "code_references": [
+        "grc_scanner/scanners/apk/apk_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "apk_missing",
+      "code_references": [
+        "grc_scanner/scanners/apk/apk_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "aws_demo_mode",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "aws_iam_error",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "aws_scan_error",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_activity_log_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.15",
+        "SOC2-CC7.2"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_appservice_auth_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.5.15",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_appservice_ftps_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.24"
+      ],
+      "mapped_frameworks": [
+        "ISO"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_appservice_http_enabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-4.2",
+        "ISO-A.8.24"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_appservice_managed_identity_missing",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.5.15",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_audit_logs_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.15",
+        "SOC2-CC7.2"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_backup_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.13",
+        "SOC2-CC7.3"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_conditional_access_missing",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.5.15",
+        "SOC2-CC6.2",
+        "NIST-AC-3"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "NIST",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_ddos_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.20",
+        "SOC2-CC7.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_defender_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.16",
+        "SOC2-CC7.2"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_firewall_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-1.1",
+        "ISO-A.8.20"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_function_http_only",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-4.2",
+        "ISO-A.8.24"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_function_managed_identity_missing",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.5.15",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_function_public_access",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-1.2",
+        "ISO-A.8.20"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_global_admin_excessive",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.5.15",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_guest_users_enabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.5.18",
+        "SOC2-CC6.3"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_keyvault_no_rbac",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.5.15",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_keyvault_old_keys",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.24",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_keyvault_public_access",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.24",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_keyvault_purge_protection_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.13"
+      ],
+      "mapped_frameworks": [
+        "ISO"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_keyvault_softdelete_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.13"
+      ],
+      "mapped_frameworks": [
+        "ISO"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_legacy_auth_enabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-8.3",
+        "ISO-A.5.17",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_log_analytics_missing",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.15",
+        "SOC2-CC7.2"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_mfa_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-8.4",
+        "ISO-A.5.17",
+        "SOC2-CC6.1",
+        "HIPAA-164.312(d)"
+      ],
+      "mapped_frameworks": [
+        "HIPAA",
+        "ISO",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_monitor_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.15",
+        "SOC2-CC7.2"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_nsg_rdp_open",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-1.2",
+        "ISO-A.8.20"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_nsg_ssh_open",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-1.2",
+        "ISO-A.8.20"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_nsg_wide_open",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-1.2",
+        "ISO-A.8.20",
+        "SOC2-CC6.6"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_policy_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.5.36",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_policy_noncompliant_resources",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.5.36",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_real_mode",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_recommendations_unresolved",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.16",
+        "SOC2-CC7.2"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_security_center_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.16",
+        "SOC2-CC7.2"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_service_principal_admin",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.5.15",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_site_recovery_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.5.30",
+        "SOC2-CC7.3"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_sql_auditing_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.15",
+        "SOC2-CC7.2"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_sql_backup_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.13",
+        "SOC2-CC7.3"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_sql_old_tls",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-4.2",
+        "ISO-A.8.24"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_sql_public_access",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-7.2",
+        "HIPAA-164.312(a)",
+        "ISO-A.8.20"
+      ],
+      "mapped_frameworks": [
+        "HIPAA",
+        "ISO",
+        "PCI"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_sql_tde_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-3.5",
+        "HIPAA-164.312(a)"
+      ],
+      "mapped_frameworks": [
+        "HIPAA",
+        "PCI"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_sql_threat_detection_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.16",
+        "SOC2-CC7.2"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_stale_accounts",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.5.18",
+        "SOC2-CC6.3"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_storage_blob_public",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-3.4",
+        "GDPR-32",
+        "ISO-A.8.12"
+      ],
+      "mapped_frameworks": [
+        "GDPR",
+        "ISO",
+        "PCI"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_storage_encryption_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-3.5",
+        "HIPAA-164.312(a)",
+        "ISO-A.8.24"
+      ],
+      "mapped_frameworks": [
+        "HIPAA",
+        "ISO",
+        "PCI"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_storage_https_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-4.2",
+        "ISO-A.8.24",
+        "SOC2-CC6.7"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_storage_key_rotation_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.24",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_storage_logging_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.15",
+        "SOC2-CC7.2"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_storage_network_rules_missing",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-1.2",
+        "ISO-A.8.20"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_storage_public",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-3.4",
+        "GDPR-32",
+        "HIPAA-164.312(a)",
+        "ISO-A.8.12"
+      ],
+      "mapped_frameworks": [
+        "GDPR",
+        "HIPAA",
+        "ISO",
+        "PCI"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_storage_softdelete_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.13",
+        "SOC2-CC7.3"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_vm_backup_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.13",
+        "SOC2-CC7.3"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_vm_disk_encryption_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-3.5",
+        "HIPAA-164.312(a)"
+      ],
+      "mapped_frameworks": [
+        "HIPAA",
+        "PCI"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_vm_jit_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.20",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "azure_vm_public_ip",
+      "code_references": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-1.2",
+        "ISO-A.8.20",
+        "SOC2-CC6.6"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "cassandra_audit_disabled",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "cassandra_auth_disabled",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "cassandra_encryption_disabled",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "cicd_latest_tag_usage",
+      "code_references": [
+        "grc_scanner/scanners/cicd/cicd_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.12.6",
+        "SOC2-CC7.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "cicd_maturity",
+      "code_references": [
+        "grc_scanner/scanners/cicd/cicd_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "cicd_no_approval_gate",
+      "code_references": [],
+      "mapped_controls": [
+        "ISO-A.12.1",
+        "NIST-CM-3",
+        "SOC2-CC6.1",
+        "PCI-6.4"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "NIST",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "cicd_no_codeql_or_sast",
+      "code_references": [
+        "grc_scanner/scanners/cicd/cicd_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.29",
+        "NIST-RA-5",
+        "SOC2-CC7.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "NIST",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "cicd_no_container_scanning",
+      "code_references": [
+        "grc_scanner/scanners/cicd/cicd_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-6.2",
+        "ISO-A.12.6",
+        "SOC2-CC7.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "cicd_no_iac_scanning",
+      "code_references": [
+        "grc_scanner/scanners/cicd/cicd_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.29",
+        "NIST-RA-5",
+        "SOC2-CC7.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "NIST",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "cicd_no_k8s_scanning",
+      "code_references": [
+        "grc_scanner/scanners/cicd/cicd_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.13.1",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "cicd_no_notifications",
+      "code_references": [
+        "grc_scanner/scanners/cicd/cicd_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.5.24",
+        "SOC2-CC7.2"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "cicd_no_sbom_generation",
+      "code_references": [
+        "grc_scanner/scanners/cicd/cicd_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-6.3",
+        "NIST-SCRM",
+        "SOC2-CC7.1"
+      ],
+      "mapped_frameworks": [
+        "NIST",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "cicd_no_secret_scanning",
+      "code_references": [
+        "grc_scanner/scanners/cicd/cicd_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.24",
+        "NIST-IA-5",
+        "SOC2-CC6.3"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "NIST",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "cicd_no_security_gate",
+      "code_references": [
+        "grc_scanner/scanners/cicd/cicd_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-6.4",
+        "ISO-A.12.1",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "cicd_secrets_in_logs",
+      "code_references": [
+        "grc_scanner/scanners/cicd/cicd_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.24",
+        "NIST-IA-5",
+        "SOC2-CC6.3"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "NIST",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "cicd_unpinned_actions",
+      "code_references": [
+        "grc_scanner/scanners/cicd/cicd_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.12.6",
+        "NIST-CM-3",
+        "SOC2-CC7.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "NIST",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "cicd_unsigned_artifacts",
+      "code_references": [
+        "grc_scanner/scanners/cicd/cicd_scanner.py"
+      ],
+      "mapped_controls": [
+        "NIST-SCRM",
+        "SOC2-CC7.1"
+      ],
+      "mapped_frameworks": [
+        "NIST",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "cicd_vulnerable_dependency",
+      "code_references": [
+        "grc_scanner/scanners/cicd/cicd_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-6.2",
+        "ISO-A.12.6",
+        "NIST-RA-5",
+        "SOC2-CC7.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "NIST",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "cicd_workflow_permissions_excessive",
+      "code_references": [
+        "grc_scanner/scanners/cicd/cicd_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.9.2",
+        "NIST-AC-6",
+        "SOC2-CC6.3"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "NIST",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "cloudtrail_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "cloudtrail_not_multi_region",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "config_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "config_error",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "container_exposed_ports",
+      "code_references": [
+        "grc_scanner/scanners/container/container_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-1.3",
+        "ISO-A.13.1",
+        "NIST-SC-7",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "NIST",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "container_latest_tag",
+      "code_references": [
+        "grc_scanner/scanners/container/container_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "container_no_healthcheck",
+      "code_references": [
+        "grc_scanner/scanners/container/container_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.12.1",
+        "NIST-SC-5",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "NIST",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "container_runs_as_root",
+      "code_references": [
+        "grc_scanner/scanners/container/container_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.24",
+        "NIST-AC-6",
+        "HIPAA-164.312(a)(1)",
+        "SOC2-CC6.3",
+        "PCI-7.2"
+      ],
+      "mapped_frameworks": [
+        "HIPAA",
+        "ISO",
+        "NIST",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "container_secrets_in_env",
+      "code_references": [
+        "grc_scanner/scanners/container/container_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.24",
+        "NIST-SC-8",
+        "HIPAA-164.312(c)(1)",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "HIPAA",
+        "ISO",
+        "NIST",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "cookie_banner_found",
+      "code_references": [
+        "grc_scanner/scanners/web/web_scanner.py"
+      ],
+      "mapped_controls": [
+        "GDPR-7",
+        "DPDPA-5"
+      ],
+      "mapped_frameworks": [
+        "DPDPA",
+        "GDPR"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "cookies_secure",
+      "code_references": [
+        "grc_scanner/scanners/web/web_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-4.1",
+        "GDPR-32"
+      ],
+      "mapped_frameworks": [
+        "GDPR",
+        "PCI"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "csp_present",
+      "code_references": [
+        "grc_scanner/scanners/web/web_scanner.py"
+      ],
+      "mapped_controls": [
+        "OWASP-A03",
+        "ISO-A.8.2"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "OWASP"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "db_audit_logging_disabled",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "db_backup_disabled",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "db_default_credentials",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "db_encryption_disabled",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "db_old_tls",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "db_public_access",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "default_credentials",
+      "code_references": [
+        "grc_scanner/scanners/vulnerability/vulnerability_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-8.3",
+        "ISO-A.5.17",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "ebs_encryption_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "exposed_env_file",
+      "code_references": [
+        "grc_scanner/scanners/vulnerability/vulnerability_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-3.4",
+        "ISO-A.8.24",
+        "SOC2-CC6.3"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "exposed_git_repository",
+      "code_references": [
+        "grc_scanner/scanners/vulnerability/vulnerability_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-6.2",
+        "ISO-A.8.29",
+        "SOC2-CC7.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "gcp_audit_logging_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "gcp_firewall_wide_open",
+      "code_references": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "gcp_kms_old_keys",
+      "code_references": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "gcp_kms_rotation_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "gcp_logging_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "gcp_mfa_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "gcp_monitoring_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "gcp_rdp_open",
+      "code_references": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "gcp_service_account_admin",
+      "code_references": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "gcp_sql_backup_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "gcp_sql_old_tls",
+      "code_references": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "gcp_sql_public_access",
+      "code_references": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "gcp_ssh_open",
+      "code_references": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "gcp_stale_accounts",
+      "code_references": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "gcp_storage_encryption_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "gcp_storage_logging_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "gcp_storage_public",
+      "code_references": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "gcp_vm_backup_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "gcp_vm_disk_encryption_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "gcp_vm_public_ip",
+      "code_references": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "gke_network_policy_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "gke_public_api",
+      "code_references": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "gke_rbac_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "gke_secret_encryption_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "guardduty_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "guardduty_error",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "hbase_auth_disabled",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "hbase_encryption_disabled",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "hive_audit_disabled",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "hive_auth_disabled",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "hive_authorization_disabled",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "hsts_present",
+      "code_references": [
+        "grc_scanner/scanners/web/web_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-4.1",
+        "ISO-A.10.1",
+        "SOC2-CC6.4"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "https_enforced",
+      "code_references": [
+        "grc_scanner/scanners/web/web_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-4.1",
+        "ISO-A.10.1",
+        "GDPR-32",
+        "HIPAA-164.312(e)(1)",
+        "SOC2-CC6.4"
+      ],
+      "mapped_frameworks": [
+        "GDPR",
+        "HIPAA",
+        "ISO",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "iac_terraform_iam_full_admin",
+      "code_references": [
+        "grc_scanner/scanners/iac/iac_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.9.2",
+        "NIST-AC-2",
+        "SOC2-CC6.3",
+        "PCI-7.2"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "NIST",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "iac_terraform_s3_public",
+      "code_references": [
+        "grc_scanner/scanners/iac/iac_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-1.1",
+        "ISO-A.13.1",
+        "NIST-AC-3",
+        "HIPAA-164.312(a)(1)",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "HIPAA",
+        "ISO",
+        "NIST",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "iac_terraform_security_group_wide_open",
+      "code_references": [
+        "grc_scanner/scanners/iac/iac_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-1.3",
+        "ISO-A.13.1",
+        "NIST-SC-7",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "NIST",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "iac_unencrypted_storage",
+      "code_references": [
+        "grc_scanner/scanners/iac/iac_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-3.4",
+        "ISO-A.8.24",
+        "NIST-SC-28",
+        "HIPAA-164.312(c)(1)",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "HIPAA",
+        "ISO",
+        "NIST",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "iam_admin_policy_attached",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "iam_old_access_keys",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "iam_root_mfa_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "inspector_error",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "k8s_container_privilege_escalation",
+      "code_references": [
+        "grc_scanner/scanners/kubernetes/kubernetes_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.24",
+        "NIST-AC-6",
+        "SOC2-CC6.3"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "NIST",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "k8s_host_path_mounted",
+      "code_references": [
+        "grc_scanner/scanners/kubernetes/kubernetes_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.13.1",
+        "NIST-AC-3",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "NIST",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "k8s_network_policy_missing",
+      "code_references": [
+        "grc_scanner/scanners/kubernetes/kubernetes_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.13.1",
+        "NIST-AC-3",
+        "PCI-1.3",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "NIST",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "k8s_pod_privileged",
+      "code_references": [
+        "grc_scanner/scanners/kubernetes/kubernetes_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.24",
+        "NIST-AC-6",
+        "HIPAA-164.312(a)(1)",
+        "SOC2-CC6.3"
+      ],
+      "mapped_frameworks": [
+        "HIPAA",
+        "ISO",
+        "NIST",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "k8s_resource_limits_missing",
+      "code_references": [
+        "grc_scanner/scanners/kubernetes/kubernetes_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "k8s_scan_completed",
+      "code_references": [
+        "grc_scanner/scanners/kubernetes/kubernetes_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "kms_error",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "kms_rotation_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "login_page_found",
+      "code_references": [
+        "grc_scanner/scanners/web/web_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "mongodb_audit_disabled",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "mongodb_auth_disabled",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "mongodb_public_access",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "mongodb_tls_disabled",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "mssql_audit_disabled",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "mssql_public_access",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "mssql_sa_enabled",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "mssql_tls_disabled",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "mysql_audit_disabled",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "mysql_public_access",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "mysql_root_remote_login",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "mysql_ssl_disabled",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "network_fallback_check",
+      "code_references": [
+        "grc_scanner/scanners/network/network_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "network_open_ports",
+      "code_references": [
+        "grc_scanner/scanners/network/network_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-6.2",
+        "ISO-A.13.1",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "network_ssh_open",
+      "code_references": [
+        "grc_scanner/scanners/network/network_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-1.3",
+        "ISO-A.13.1",
+        "SOC2-CC6.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "network_web_open",
+      "code_references": [
+        "grc_scanner/scanners/network/network_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-1.2",
+        "ISO-A.13.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "nuclei_cve_critical",
+      "code_references": [],
+      "mapped_controls": [
+        "PCI-6.2",
+        "ISO-A.12.6",
+        "NIST-RA-5",
+        "HIPAA-164.308(a)(1)(ii)(D)",
+        "SOC2-CC7.1"
+      ],
+      "mapped_frameworks": [
+        "HIPAA",
+        "ISO",
+        "NIST",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "nuclei_cve_high",
+      "code_references": [],
+      "mapped_controls": [
+        "PCI-6.2",
+        "ISO-A.12.6",
+        "NIST-RA-5",
+        "SOC2-CC7.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "NIST",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "nuclei_cve_medium",
+      "code_references": [],
+      "mapped_controls": [
+        "ISO-A.8.29",
+        "NIST-RA-5",
+        "SOC2-CC7.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "NIST",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "nuclei_exposure",
+      "code_references": [
+        "grc_scanner/scanners/vulnerability/vulnerability_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-6.2",
+        "ISO-A.12.6",
+        "SOC2-CC7.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "nuclei_generic",
+      "code_references": [
+        "grc_scanner/scanners/vulnerability/vulnerability_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.29",
+        "SOC2-CC7.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "nuclei_misconfiguration",
+      "code_references": [
+        "grc_scanner/scanners/vulnerability/vulnerability_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.8.29",
+        "NIST-CM-6",
+        "SOC2-CC7.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "NIST",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "open_ports_detected",
+      "code_references": [],
+      "mapped_controls": [
+        "PCI-6.2",
+        "ISO-A.13.1",
+        "NIST-PR.PS",
+        "SOC2-CC6.1",
+        "CIS-12"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "NIST",
+        "OTHER",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "postgres_audit_disabled",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "postgres_public_access",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "postgres_ssl_disabled",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "postgres_superuser_enabled",
+      "code_references": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "privacy_policy_found",
+      "code_references": [
+        "grc_scanner/scanners/web/web_scanner.py"
+      ],
+      "mapped_controls": [
+        "GDPR-12",
+        "GDPR-13",
+        "DPDPA-4"
+      ],
+      "mapped_frameworks": [
+        "DPDPA",
+        "GDPR"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "rds_public_access",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "s3_bucket_discovered",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "s3_bucket_public",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "s3_encryption_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "s3_versioning_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "secret_detected",
+      "code_references": [
+        "grc_scanner/scanners/secrets/secrets_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-8.2",
+        "ISO-A.8.24",
+        "NIST-IA-5",
+        "HIPAA-164.312(d)",
+        "SOC2-CC6.3",
+        "GDPR-32",
+        "DPDPA-8"
+      ],
+      "mapped_frameworks": [
+        "DPDPA",
+        "GDPR",
+        "HIPAA",
+        "ISO",
+        "NIST",
+        "PCI",
+        "SOC2"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "secret_error",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "secret_rotation_disabled",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "security_group_wide_open",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "security_txt_missing",
+      "code_references": [
+        "grc_scanner/scanners/vulnerability/vulnerability_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.5.24",
+        "NIST-ID.RA"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "NIST"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "server_header_leak",
+      "code_references": [
+        "grc_scanner/scanners/web/web_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.5.10"
+      ],
+      "mapped_frameworks": [
+        "ISO"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "ssl_certificate_chain_invalid",
+      "code_references": [
+        "grc_scanner/scanners/ssl/ssl_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "ssl_certificate_expired",
+      "code_references": [
+        "grc_scanner/scanners/ssl/ssl_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "ssl_certificate_expiring_soon",
+      "code_references": [
+        "grc_scanner/scanners/ssl/ssl_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "ssl_hsts_missing",
+      "code_references": [
+        "grc_scanner/scanners/ssl/ssl_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "ssl_insecure_renegotiation",
+      "code_references": [
+        "grc_scanner/scanners/ssl/ssl_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "ssl_ocsp_disabled",
+      "code_references": [
+        "grc_scanner/scanners/ssl/ssl_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "ssl_old_tls_version",
+      "code_references": [
+        "grc_scanner/scanners/ssl/ssl_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "ssl_self_signed",
+      "code_references": [
+        "grc_scanner/scanners/ssl/ssl_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "ssl_weak_cipher",
+      "code_references": [
+        "grc_scanner/scanners/ssl/ssl_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "ssl_weak_key_length",
+      "code_references": [
+        "grc_scanner/scanners/ssl/ssl_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "technology_fingerprint",
+      "code_references": [
+        "grc_scanner/scanners/web/web_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "tls_version_good",
+      "code_references": [
+        "grc_scanner/scanners/web/web_scanner.py"
+      ],
+      "mapped_controls": [
+        "PCI-4.1",
+        "ISO-A.10.1"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "PCI"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "waf_error",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "waf_missing",
+      "code_references": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "web_scan_failed",
+      "code_references": [
+        "grc_scanner/scanners/web/web_scanner.py"
+      ],
+      "mapped_controls": [],
+      "mapped_frameworks": [],
+      "mapping_status": "unmapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "x_content_type_options",
+      "code_references": [
+        "grc_scanner/scanners/web/web_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.13.1"
+      ],
+      "mapped_frameworks": [
+        "ISO"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    },
+    {
+      "id": "x_frame_options",
+      "code_references": [
+        "grc_scanner/scanners/web/web_scanner.py"
+      ],
+      "mapped_controls": [
+        "ISO-A.13.1",
+        "OWASP-A05"
+      ],
+      "mapped_frameworks": [
+        "ISO",
+        "OWASP"
+      ],
+      "mapping_status": "mapped",
+      "definition_status": "missing"
+    }
+  ]
+}

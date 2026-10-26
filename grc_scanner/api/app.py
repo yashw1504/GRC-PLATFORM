@@ -13,11 +13,17 @@ from grc_scanner.storage.scan_repository import ScanRepository
 from grc_scanner.storage.findings_repository import FindingsRepository
 from grc_scanner.storage.compliance_repository import ComplianceRepository
 from grc_scanner.storage.report_repository import ReportRepository
+from grc_scanner.storage.postgres_client import PostgresClient
 from grc_scanner.utils.file_utils import FileUtils
 
 app = FastAPI(
     title="GRC Platform API"
 )
+
+
+@app.on_event("startup")
+def initialize_database():
+    PostgresClient.initialize()
 
 app.add_middleware(
     CORSMiddleware,

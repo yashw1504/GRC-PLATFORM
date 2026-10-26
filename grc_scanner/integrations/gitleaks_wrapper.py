@@ -32,7 +32,8 @@ class GitleaksWrapper:
                     "-"
                 ],
                 capture_output=True,
-                text=True
+                text=True,
+                timeout=300
             )
 
             if not result.stdout:

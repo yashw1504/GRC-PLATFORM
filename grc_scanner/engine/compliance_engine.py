@@ -20,7 +20,7 @@ class ComplianceEngine:
         for finding in findings:
             finding.mapped_controls = mapping.get(finding.check_id, [])
 
-            if not finding.mapped_controls:
+            if not finding.mapped_controls and finding.status != "error":
                 print(f"WARNING: No compliance mapping for {finding.check_id}")
 
         return findings
@@ -35,6 +35,7 @@ class ComplianceEngine:
         frameworks = {
             "PCI": [],
             "ISO": [],
+            "NIST": [],
             "GDPR": [],
             "HIPAA": [],
             "SOC2": [],
@@ -53,7 +54,7 @@ class ComplianceEngine:
 
         for fw, controls in frameworks.items():
             if not controls:
-                scores[fw] = 100
+                scores[fw] = None
                 continue
 
             failed = len([f for f in controls if f.status == "fail"])

@@ -34,6 +34,8 @@ class SSLScanWrapper:
 
             return result.stdout
 
+        except subprocess.TimeoutExpired:
+            return []
         except Exception as e:
 
             print("SSLScan Error:", e)

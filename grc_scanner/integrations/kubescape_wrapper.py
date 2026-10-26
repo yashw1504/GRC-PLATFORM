@@ -26,7 +26,8 @@ class KubescapeWrapper:
                     "json"
                 ],
                 capture_output=True,
-                text=True
+                text=True,
+                timeout=600
             )
 
             if not result.stdout:
@@ -34,5 +35,7 @@ class KubescapeWrapper:
 
             return json.loads(result.stdout)
 
+        except subprocess.TimeoutExpired:
+            return []
         except Exception:
             return {}

@@ -37,6 +37,8 @@ class SyftWrapper:
 
             return json.loads(result.stdout)
 
+        except subprocess.TimeoutExpired:
+            return []
         except Exception as e:
             print("Syft Error:", e)
             return {}

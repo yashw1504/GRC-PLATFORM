@@ -25,7 +25,8 @@ class GrypeWrapper:
                     "json"
                 ],
                 capture_output=True,
-                text=True
+                text=True,
+                timeout=600
             )
 
             if result.returncode != 0:
@@ -36,5 +37,7 @@ class GrypeWrapper:
 
             return json.loads(result.stdout)
 
+        except subprocess.TimeoutExpired:
+            return []
         except Exception:
             return {}

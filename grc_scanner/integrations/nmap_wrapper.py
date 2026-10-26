@@ -31,10 +31,13 @@ class NmapWrapper:
                     host
                 ],
                 capture_output=True,
-                text=True
+                text=True,
+                timeout=600
             )
 
             return result.stdout
 
+        except subprocess.TimeoutExpired:
+            return []
         except Exception:
             return ""

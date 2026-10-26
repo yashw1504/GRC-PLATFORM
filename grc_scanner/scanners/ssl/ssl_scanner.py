@@ -3,6 +3,7 @@ from grc_scanner.engine.risk_engine import RiskEngine
 from grc_scanner.integrations.sslscan_wrapper import (
     SSLScanWrapper
 )
+from grc_scanner.engine.scanner_errors import scanner_error_finding
 
 
 class SSLScanner:
@@ -16,10 +17,10 @@ class SSLScanner:
                 target
             )
 
-        # Do not generate synthetic vulnerabilities when sslscan is absent.
-        # Callers receive an empty result and the deployment health check can
-        # expose the missing binary instead.
-        return []
+        return [scanner_error_finding(
+            self.name, "SSLScan is unavailable; the dedicated TLS scan was not completed.",
+            target, category="SSL/TLS",
+        )]
 
     def _scan_with_sslscan(
         self,

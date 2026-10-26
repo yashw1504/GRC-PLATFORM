@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "prompt_expected_total": 625,
+  "prompt_category_count_sum": 625,
+  "count_reconciliation": {
+    "prompt_total_matches_category_sum": true,
+    "detailed_file_count_sum": 605,
+    "detailed_file_counts_match_total": false,
+    "note": "The category table sums to 625, but the detailed SSL, header, and network file ranges sum to 605."
+  },
+  "catalog_check_ids": 234,
+  "code_referenced_check_ids": 229,
+  "mapped_check_ids": 112,
+  "mapping_only_check_ids": 5,
+  "code_referenced_unmapped_check_ids": 122,
+  "unmapped_check_ids": 122,
+  "mapped_ids_with_fewer_than_three_frameworks": 63,
+  "mapped_ids_missing_pci": 62,
+  "mapped_ids_missing_owasp": 109,
+  "categories": [
+    {
+      "id": "web_security",
+      "prompt_expected_checks": 90,
+      "observed_check_ids": 13,
+      "implementation_status": "partial",
+      "scanner_sources": [
+        "grc_scanner/scanners/web/web_scanner.py"
+      ],
+      "note": "Active HTTP checks exist; coverage is far below the requested catalog."
+    },
+    {
+      "id": "api_security",
+      "prompt_expected_checks": 60,
+      "observed_check_ids": 21,
+      "implementation_status": "partial",
+      "scanner_sources": [
+        "grc_scanner/scanners/api/api_scanner.py"
+      ],
+      "note": "Passive response checks are active; authentication and authorization probes are not."
+    },
+    {
+      "id": "ssl_tls",
+      "prompt_expected_checks": 60,
+      "observed_check_ids": 23,
+      "implementation_status": "partial",
+      "scanner_sources": [
+        "grc_scanner/scanners/ssl/ssl_scanner.py",
+        "grc_scanner/scanners/web/web_scanner.py"
+      ],
+      "note": "Custom web TLS checks and optional SSLScan are present."
+    },
+    {
+      "id": "http_headers",
+      "prompt_expected_checks": 40,
+      "observed_check_ids": 34,
+      "implementation_status": "partial",
+      "scanner_sources": [
+        "grc_scanner/scanners/web/web_scanner.py",
+        "grc_scanner/scanners/api/api_scanner.py"
+      ],
+      "note": "A small set of response header checks is active."
+    },
+    {
+      "id": "network",
+      "prompt_expected_checks": 60,
+      "observed_check_ids": 4,
+      "implementation_status": "partial",
+      "scanner_sources": [
+        "grc_scanner/scanners/network/network_scanner.py"
+      ],
+      "note": "Nmap is optional; without it, the scan reports an unavailable result."
+    },
+    {
+      "id": "aws",
+      "prompt_expected_checks": 55,
+      "observed_check_ids": 26,
+      "implementation_status": "partial",
+      "scanner_sources": [
+        "grc_scanner/scanners/cloud/aws_scanner.py"
+      ],
+      "note": "Boto3 checks run only when account credentials are available."
+    },
+    {
+      "id": "azure",
+      "prompt_expected_checks": 50,
+      "observed_check_ids": 60,
+      "implementation_status": "unavailable",
+      "scanner_sources": [
+        "grc_scanner/scanners/cloud/azure_scanner.py"
+      ],
+      "note": "Current scanner reports unavailable; legacy check methods are not invoked."
+    },
+    {
+      "id": "gcp",
+      "prompt_expected_checks": 50,
+      "observed_check_ids": 24,
+      "implementation_status": "unavailable",
+      "scanner_sources": [
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "note": "Current scanner reports unavailable; legacy check methods are not invoked."
+    },
+    {
+      "id": "kubernetes",
+      "prompt_expected_checks": 25,
+      "observed_check_ids": 90,
+      "implementation_status": "partial",
+      "scanner_sources": [
+        "grc_scanner/scanners/kubernetes/kubernetes_scanner.py",
+        "grc_scanner/scanners/cloud/azure_scanner.py",
+        "grc_scanner/scanners/cloud/gcp_scanner.py"
+      ],
+      "note": "Manifest checks run locally; Kubescape is optional."
+    },
+    {
+      "id": "database",
+      "prompt_expected_checks": 20,
+      "observed_check_ids": 30,
+      "implementation_status": "unavailable",
+      "scanner_sources": [
+        "grc_scanner/scanners/database/database_scanner.py"
+      ],
+      "note": "No database client checks are active."
+    },
+    {
+      "id": "secrets",
+      "prompt_expected_checks": 20,
+      "observed_check_ids": 1,
+      "implementation_status": "partial",
+      "scanner_sources": [
+        "grc_scanner/scanners/secrets/secrets_scanner.py"
+      ],
+      "note": "Gitleaks or local pattern checks run on source paths."
+    },
+    {
+      "id": "iac",
+      "prompt_expected_checks": 20,
+      "observed_check_ids": 4,
+      "implementation_status": "partial",
+      "scanner_sources": [
+        "grc_scanner/scanners/iac/iac_scanner.py"
+      ],
+      "note": "Checkov is optional; local Terraform checks provide limited coverage."
+    },
+    {
+      "id": "mobile",
+      "prompt_expected_checks": 20,
+      "observed_check_ids": 2,
+      "implementation_status": "partial",
+      "scanner_sources": [
+        "grc_scanner/scanners/apk/apk_scanner.py"
+      ],
+      "note": "APK checks are limited and external mobile tooling is not wired into the active path."
+    },
+    {
+      "id": "cicd",
+      "prompt_expected_checks": 15,
+      "observed_check_ids": 15,
+      "implementation_status": "partial",
+      "scanner_sources": [
+        "grc_scanner/scanners/cicd/cicd_scanner.py"
+      ],
+      "note": "Repository workflow checks cover a subset of pipeline risks."
+    },
+    {
+      "id": "vulnerability",
+      "prompt_expected_checks": 20,
+      "observed_check_ids": 13,
+      "implementation_status": "partial",
+      "scanner_sources": [
+        "grc_scanner/scanners/vulnerability/vulnerability_scanner.py",
+        "grc_scanner/scanners/container/container_scanner.py",
+        "grc_scanner/scanners/sbom/sbom_scanner.py",
+        "grc_scanner/scanners/semgrep/semgrep_scanner.py"
+      ],
+      "note": "Nuclei and fallback exposure probes cover a subset of web vulnerabilities."
+    },
+    {
+      "id": "privacy",
+      "prompt_expected_checks": 20,
+      "observed_check_ids": 13,
+      "implementation_status": "partial",
+      "scanner_sources": [
+        "grc_scanner/scanners/web/web_scanner.py"
+      ],
+      "note": "A small number of website privacy indicators are checked."
+    }
+  ]
+}

@@ -1,42 +1,71 @@
+from urllib.parse import urlparse
+import requests
+
 from grc_scanner.engine.finding import Finding
 from grc_scanner.engine.risk_engine import RiskEngine
+from grc_scanner.engine.scanner_errors import scanner_error_finding
 
 
 class APIScanner:
 
     name = "api_scanner"
 
-    def scan(self, target="https://example.com"):
+    def scan(self, target):
+        if not target:
+            return [scanner_error_finding(
+                self.name, "An API URL is required to run API checks.", category="API"
+            )]
+        if not target.startswith(("http://", "https://")):
+            target = f"https://{target}"
+
+        try:
+            response = requests.get(target, timeout=10, allow_redirects=True)
+        except requests.RequestException:
+            return [scanner_error_finding(
+                self.name, "The API endpoint could not be reached; API checks were not completed.",
+                target, category="API",
+            )]
 
         findings = []
+        parsed = urlparse(target)
+        if parsed.scheme != "https":
+            findings.append(self._create_finding(
+                "api_https_enforced", "API Transport Security", "fail", "High",
+                "The API endpoint uses unencrypted HTTP.", target,
+                "API traffic can be intercepted or modified.",
+                "Serve the API over HTTPS and redirect HTTP requests.",
+                "Require TLS 1.2 or newer.", "API Transport Security",
+            ))
 
-        findings.extend(
-            self._check_authentication()
-        )
+        cors = response.headers.get("Access-Control-Allow-Origin", "").strip()
+        if cors == "*":
+            findings.append(self._create_finding(
+                "api_cors_wildcard", "Wildcard CORS Policy", "fail", "Medium",
+                "The API response allows requests from every origin.", cors,
+                "Browser clients from untrusted origins can access API responses.",
+                "Restrict CORS to trusted application origins.",
+                "Review credential and origin policies together.", "API Configuration",
+            ))
 
-        findings.extend(
-            self._check_authorization()
-        )
+        server = response.headers.get("Server", "").strip()
+        if server and any(character.isdigit() for character in server):
+            findings.append(self._create_finding(
+                "api_server_header_disclosure", "Server Version Disclosure", "fail", "Low",
+                "The API response exposes a server version in its Server header.", server,
+                "Version details can help attackers select targeted exploits.",
+                "Remove or generalize version information in response headers.",
+                "Keep server software patched.", "API Configuration",
+            ))
 
-        findings.extend(
-            self._check_data_exposure()
-        )
-
-        findings.extend(
-            self._check_rate_limiting()
-        )
-
-        findings.extend(
-            self._check_headers()
-        )
-
-        findings.extend(
-            self._check_injection()
-        )
-
-        findings.extend(
-            self._check_transport_security()
-        )
+        if "application/json" not in response.headers.get("Content-Type", "").lower():
+            findings.append(self._create_finding(
+                "api_content_type", "API Content Type", "warning", "Low",
+                "The endpoint response does not declare a JSON content type.",
+                response.headers.get("Content-Type", "Not present"),
+                "Clients may parse responses inconsistently.",
+                "Set an explicit content type that matches the response body.",
+                "Use application/json for JSON responses.", "API Configuration",
+            ))
 
         return findings
 

@@ -75,8 +75,10 @@ function ComplianceDetails() {
 
                 <h1>
                   {
-                    score.score
-                  }%
+                    score.score == null
+                      ? "Not assessed"
+                      : `${score.score}%`
+                  }
                 </h1>
 
               </div>

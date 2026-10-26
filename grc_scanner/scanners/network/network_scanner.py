@@ -1,6 +1,7 @@
 from grc_scanner.engine.finding import Finding
 from grc_scanner.engine.risk_engine import RiskEngine
 from grc_scanner.integrations.nmap_wrapper import NmapWrapper
+from grc_scanner.engine.scanner_errors import scanner_error_finding
 
 
 class NetworkScanner:
@@ -10,7 +11,12 @@ class NetworkScanner:
         if NmapWrapper.is_available():
             return self._scan_with_nmap(target)
 
-        return self._scan_with_fallback(target)
+        return [scanner_error_finding(
+            self.name,
+            "Nmap is unavailable; the network scan could not be completed.",
+            target,
+            category="Network",
+        )]
 
     def _scan_with_nmap(self, target):
         findings = []

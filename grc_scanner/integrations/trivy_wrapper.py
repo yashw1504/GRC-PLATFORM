@@ -29,7 +29,8 @@ class TrivyWrapper:
                     "json"
                 ],
                 capture_output=True,
-                text=True
+                text=True,
+                timeout=600
             )
 
             if not result.stdout:
@@ -39,5 +40,7 @@ class TrivyWrapper:
                 result.stdout
             )
 
+        except subprocess.TimeoutExpired:
+            return []
         except Exception:
             return {}

@@ -6,6 +6,7 @@ from grc_scanner.engine.risk_engine import RiskEngine
 
 from grc_scanner.integrations.syft_wrapper import SyftWrapper
 from grc_scanner.integrations.grype_wrapper import GrypeWrapper
+from grc_scanner.engine.scanner_errors import scanner_error_finding
 
 
 class SBOMScanner:
@@ -21,9 +22,17 @@ class SBOMScanner:
         ):
             return self._scan_real(target)
 
-        print("SBOM: Falling back to demo mode")
-
-        return self._scan_demo()
+        missing = []
+        if not SyftWrapper.is_available():
+            missing.append("Syft")
+        if not GrypeWrapper.is_available():
+            missing.append("Grype")
+        return [scanner_error_finding(
+            self.name,
+            f"Required SBOM tooling is unavailable: {', '.join(missing)}.",
+            target,
+            category="SBOM",
+        )]
 
     def _scan_real(self, target):
 
@@ -47,6 +56,9 @@ class SBOMScanner:
             results = GrypeWrapper.scan(
                 sbom_file
             )
+
+            if not isinstance(results, dict):
+                return []
 
             matches = results.get(
                 "matches",
@@ -143,6 +155,19 @@ class SBOMScanner:
         if len(description) > 500:
             description = description[:500]
 
+        cvss_score = None
+        cvss_records = vulnerability.get("cvss", []) or []
+        if isinstance(cvss_records, dict):
+            cvss_records = [cvss_records]
+        for score_record in cvss_records:
+            metrics = score_record.get("metrics", {})
+            raw_score = metrics.get("baseScore") or metrics.get("cvssData", {}).get("baseScore")
+            try:
+                candidate = float(raw_score)
+            except (TypeError, ValueError):
+                continue
+            cvss_score = max(cvss_score or 0, candidate)
+
         finding = Finding(
 
             check_id=vulnerability.get(
@@ -173,7 +198,11 @@ class SBOMScanner:
 
             scanner_name=self.name,
 
-            target_type="sbom"
+            target_type="sbom",
+            cve_id=str(vulnerability.get("id", "")),
+            cvss_score=cvss_score,
+            target_asset=evidence,
+            raw_data={"vulnerability": vulnerability, "artifact": artifact}
         )
 
         return RiskEngine.enrich_finding(
