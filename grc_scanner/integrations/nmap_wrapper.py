@@ -1,5 +1,6 @@
 import shutil
 import subprocess
+from urllib.parse import urlparse
 
 
 class NmapWrapper:
@@ -17,13 +18,17 @@ class NmapWrapper:
         if not NmapWrapper.is_available():
             return ""
 
+        parsed = urlparse(target if "://" in target else f"//{target}")
+        host = parsed.hostname or target.split("/")[0]
+
         try:
 
             result = subprocess.run(
                 [
                     "nmap",
                     "-sV",
-                    target
+                    "-F",
+                    host
                 ],
                 capture_output=True,
                 text=True
