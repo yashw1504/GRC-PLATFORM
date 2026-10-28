@@ -6,19 +6,70 @@ import Layout from "../components/Layout";
 function ScanDetails() {
   const { id } = useParams();
   const [data, setData] = useState(null);
+  const [reports, setReports] = useState([]);
+  const [reportsLoading, setReportsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
+    let active = true;
+    setLoading(true);
+    setError("");
+
     API.get(`/scans/${id}`)
       .then((response) => {
-        setData(response.data);
+        if (!response.data?.scan) {
+          throw new Error("This scan record was not found.");
+        }
+        if (active) setData(response.data);
       })
-      .catch(console.error);
+      .catch((requestError) => {
+        if (active) {
+          setError(
+            requestError.response?.data?.detail ||
+            requestError.message ||
+            "Could not load this scan."
+          );
+        }
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+
+    API.get(`/reports/${id}`)
+      .then((response) => {
+        if (active) setReports(response.data.map((report) => report.type));
+      })
+      .catch(() => {
+        if (active) setReports([]);
+      })
+      .finally(() => {
+        if (active) setReportsLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
   }, [id]);
 
-  if (!data) {
+  if (loading) {
     return (
       <Layout>
         <h2>Loading...</h2>
+      </Layout>
+    );
+  }
+
+  if (error || !data) {
+    return (
+      <Layout>
+        <div role="alert" style={{ color: "#fca5a5", padding: "24px" }}>
+          <h2>Could not load scan details</h2>
+          <p>{error || "This scan record was not found."}</p>
+          <button type="button" onClick={() => window.location.reload()}>
+            Retry
+          </button>
+        </div>
       </Layout>
     );
   }
@@ -115,7 +166,7 @@ function ScanDetails() {
               </tr>
             </thead>
             <tbody>
-              {data.compliance.map((item, index) => (
+              {(data.compliance || []).map((item, index) => (
                 <tr key={index}>
                   <td style={{ ...tdStyle, fontWeight: "600" }}>{item.framework}</td>
                   <td style={tdStyle}>{item.score == null ? "Not assessed" : `${item.score}%`}</td>
@@ -137,7 +188,7 @@ function ScanDetails() {
               flexWrap: "wrap"
             }}
           >
-            <a
+            {reports.includes("json") && <a
               href={`/api/download/${id}/json`}
               style={{
                 padding: "10px 18px",
@@ -150,9 +201,9 @@ function ScanDetails() {
               }}
             >
               📄 Download JSON
-            </a>
+            </a>}
 
-            <a
+            {reports.includes("html") && <a
               href={`/api/download/${id}/html`}
               style={{
                 padding: "10px 18px",
@@ -165,9 +216,9 @@ function ScanDetails() {
               }}
             >
               🌐 Download HTML
-            </a>
+            </a>}
 
-            <a
+            {reports.includes("executive") && <a
               href={`/api/download/${id}/executive`}
               style={{
                 padding: "10px 18px",
@@ -180,8 +231,8 @@ function ScanDetails() {
               }}
             >
               📊 Download Executive
-            </a>
-            <a
+            </a>}
+            {reports.includes("excel") && <a
               href={`/api/download/${id}/excel`}
               style={{
                 padding: "10px 18px",
@@ -194,7 +245,12 @@ function ScanDetails() {
               }}
             >
               Download Excel
-            </a>
+            </a>}
+            {!reportsLoading && reports.length === 0 && (
+              <p role="status" style={{ color: "#cbd5e1" }}>
+                No reports were generated for this scan. It may have failed before report generation.
+              </p>
+            )}
           </div>
         </div>
 
@@ -213,7 +269,7 @@ function ScanDetails() {
               </tr>
             </thead>
             <tbody>
-              {data.findings.map((finding) => (
+              {(data.findings || []).map((finding) => (
                 <tr key={finding.id}>
                   <td style={{ ...tdStyle, fontWeight: "600" }}>{finding.id}</td>
                   <td style={tdStyle}>{finding.name}</td>

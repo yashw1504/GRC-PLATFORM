@@ -84,17 +84,13 @@ function Scans() {
                   </td>
 
                   <td>
-                    {scan.scan_type}
+                    <Link to={`/scans/${scan.id}`}>
+                      View
+                    </Link>
                   </td>
 
                   <td>
-
-                  <Link
-                      to={`/scans/${scan.id}`}
-                  >
-                      View
-                  </Link>
-
+                    {scan.scan_type}
                   </td>
 
                 </tr>
