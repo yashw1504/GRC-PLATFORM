@@ -19,7 +19,28 @@ class FindingsRepository:
 
         cursor = conn.cursor()
 
+        # Older deployments created this column as TEXT[]. The current schema
+        # stores it as TEXT, so preserve compatibility with both DB shapes.
+        cursor.execute(
+            """
+            SELECT data_type
+            FROM information_schema.columns
+            WHERE table_schema = current_schema()
+              AND table_name = 'findings'
+              AND column_name = 'mapped_controls'
+            """
+        )
+        mapped_controls_column = cursor.fetchone()
+        mapped_controls_is_array = (
+            mapped_controls_column is not None
+            and mapped_controls_column[0] == "ARRAY"
+        )
+
         for finding in findings:
+
+            mapped_controls = finding.mapped_controls or []
+            if not mapped_controls_is_array:
+                mapped_controls = " | ".join(mapped_controls)
 
             cursor.execute(
                 """
@@ -70,7 +91,7 @@ class FindingsRepository:
                     finding.cvss_score,
                     finding.target_asset,
                     finding.description,
-                    " | ".join(finding.mapped_controls or []),
+                    mapped_controls,
                     finding.remediation,
                     finding.target_type,
                     finding.business_impact,
@@ -200,6 +221,12 @@ class FindingsRepository:
 
         for row in rows:
 
+            stored_controls = row[15]
+            if isinstance(stored_controls, str):
+                mapped_controls = stored_controls.split(" | ") if stored_controls else []
+            else:
+                mapped_controls = list(stored_controls or [])
+
             results.append(
                 {
                     "id": row[0],
@@ -217,7 +244,7 @@ class FindingsRepository:
                     "target_asset": row[12],
                     "description": row[13],
                     "remediation": row[14],
-                    "mapped_controls": row[15].split(" | ") if row[15] else [],
+                    "mapped_controls": mapped_controls,
                     "target_type": row[16],
                     "business_impact": row[17],
                     "recommendation": row[18],

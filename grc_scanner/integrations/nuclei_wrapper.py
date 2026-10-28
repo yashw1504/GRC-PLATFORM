@@ -19,7 +19,7 @@ class NucleiWrapper:
             "nuclei",
             "-u",
             target,
-            "-json",
+            "-jsonl",
             "-silent",
             "-duc",
             "-rl", "20"
