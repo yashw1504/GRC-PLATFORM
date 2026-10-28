@@ -138,7 +138,7 @@ function ScanDetails() {
             }}
           >
             <a
-              href={`http://13.235.91.131:8000/download/${id}/json`}
+              href={`/api/download/${id}/json`}
               style={{
                 padding: "10px 18px",
                 background: "linear-gradient(90deg, #2563eb, #7c3aed)",
@@ -153,7 +153,7 @@ function ScanDetails() {
             </a>
 
             <a
-              href={`http://13.235.91.131:8000/download/${id}/html`}
+              href={`/api/download/${id}/html`}
               style={{
                 padding: "10px 18px",
                 background: "linear-gradient(90deg, #1fe4f5, #2563eb)",
@@ -168,7 +168,7 @@ function ScanDetails() {
             </a>
 
             <a
-              href={`http://13.235.91.131:8000/download/${id}/executive`}
+              href={`/api/download/${id}/executive`}
               style={{
                 padding: "10px 18px",
                 background: "linear-gradient(90deg, #fbbf24, #f59e0b)",
@@ -182,7 +182,7 @@ function ScanDetails() {
               📊 Download Executive
             </a>
             <a
-              href={`http://13.235.91.131:8000/download/${id}/excel`}
+              href={`/api/download/${id}/excel`}
               style={{
                 padding: "10px 18px",
                 background: "linear-gradient(90deg, #22c55e, #15803d)",
